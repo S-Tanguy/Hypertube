@@ -1,12 +1,23 @@
-var express = require('express');
-	path = require('path');
-	cookieParser = require('cookie-parser');
-	logger = require('morgan');
-	indexRouter = require('./routes/index');
-	usersRouter = require('./routes/users');
-	logger = require('morgan');
+const express = require('express'),
+	path = require('path'),
+	cookieParser = require('cookie-parser'),
+	logger = require('morgan'),
+	indexRouter = require('./routes/index'),
+	usersRouter = require('./routes/users'),
+	mongoose = require('mongoose'),
+	database = require('./model/database.js'),
 	app = express();
 
+
+// db connection ===============================================================
+
+console.log('url : ', database.url)
+mongoose.connect(database.url, (err)=>
+{
+	if (err)
+		throw  err;
+	console.log('connected')
+})
 
 
 
