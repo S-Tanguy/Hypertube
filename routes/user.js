@@ -2,14 +2,14 @@
 
 const nodemailer	= require('nodemailer'),
 		crypto		= require('crypto'),
-		User		= require('../Models/user'),
-		jwt 		= require('../Middlewares/jwt.js'),
+		User		= require('../models/user'),
+		jwt 		= require('../middlewares/jwt.js'),
 		// customAuth 	= require('../Middlewares/customAuth.js'),
-		userUtils	= require('../Utils/userDataValidator'),
-		mailUtils	= require('../Utils/mail'),
+		userUtils	= require('../utils/userDataValidator'),
+		mailUtils	= require('../utils/mail'),
+		uploadUtils	= require('../utils/upload'),
 		router		= require('express').Router(),
 
-		uploadUtils	= require('../Utils/upload'),
 		bcrypt		= require('bcrypt-nodejs');
 
 
@@ -188,4 +188,3 @@ router.post('/reset_pass', (req, res) =>
 })
 
 module.exports = router;
-

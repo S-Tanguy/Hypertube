@@ -5,8 +5,8 @@ let bcrypt			= require('bcrypt-nodejs'),
 	GoogleStrategy	= require('passport-google-oauth20').Strategy,
 	OAuth2Strategy = require('passport-oauth2'),
 	Auth			= require('passport-auth0'),
-	User 			= require('../Models/user'),
-	Movie 			= require('../Models/movie'),
+	User 			= require('../models/user'),
+	movie 			= require('../models/movie'),
 	request = require('request'),
 	saltRounds		= 10;
 

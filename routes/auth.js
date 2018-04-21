@@ -3,12 +3,12 @@
 const nodemailer	= require('nodemailer'),
 		crypto		= require('crypto'),
 		passport	= require('passport'),
-		User		= require('../Models/user'),
-		jwt 		= require('../Middlewares/jwt.js'),
-		customAuth 	= require('../Middlewares/customAuth.js'),
-		userUtils	= require('../Utils/userDataValidator'),
-		mailUtils	= require('../Utils/mail'),
-		uploadUtils	= require('../Utils/upload'),
+		User		= require('../models/user'),
+		jwt 		= require('../middlewares/jwt.js'),
+		customAuth 	= require('../middlewares/customAuth.js'),
+		userUtils	= require('../utils/userDataValidator'),
+		mailUtils	= require('../utils/mail'),
+		uploadUtils	= require('../utils/upload'),
 		router			= require('express').Router(),
 		bcrypt		= require('bcrypt-nodejs');
 
