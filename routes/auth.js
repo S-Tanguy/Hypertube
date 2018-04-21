@@ -51,19 +51,19 @@ router.post('/sign_in', (req, res, next) =>
 	})(req, res, next);
 })
 
-.get('/42', (req, res, next) =>
+
+router.get('/42', passport.authenticate('oauth2'));
+
+router.get('/42/callback', (req, res, next) =>
 {
 
-	let code;
-	customAuth.auth42({code}, (err)=>
+	passport.authenticate('oauth2', (err, user) =>
 	{
-		if (err)
-			return (res.status(401).json({sucess: false, err}));
-	})
-})
-
-
-
+		// Successful authentication, redirect home.
+		console.log(user)
+		next()
+	})(req, res, next);
+});
 
 
 /*	====================================
