@@ -1,0 +1,31 @@
+<div class='background'>
+  <div class='header'>
+
+  </div>
+  <mat-card class='card'>
+    <mat-card-title>{{'signin.signin' | translate}}</mat-card-title>
+    <form #signInForm='ngForm'>
+        <mat-form-field class='input'>
+          <input matInput [placeholder]="'signin.username' | translate">
+        </mat-form-field>
+      
+        <mat-form-field class='input'>
+          <input type='password' matInput [placeholder]="'signin.password' | translate">
+        </mat-form-field>
+
+        <p class='forgot' translate>signin.forgotPassword</p>
+        <button mat-raised-button class='input' style='margin-bottom: 20px;'>{{'signin.signin' | translate}}</button>
+        <mat-divider [inset]="true"></mat-divider>
+        <div style='display: flex; flex-direction: row; height: 35px; margin-top: 15px;'>
+          <img src='assets/images/fb.svg' class='mini'> <p class='blue' translate style='font-size: 14px;'>signin.loginFacebook</p>
+        </div>
+        <div style='display: flex; flex-direction: row; height: 35px;'>
+          <img src='assets/images/gmail.svg' class='mini'> <p class='blue' translate style='font-size: 14px;'>signin.loginGoogle</p>
+        </div>
+        <div style='display: flex; flex-direction: row; height: 35px;'>
+          <img src='assets/images/42.png' class='mini'> <p class='blue' translate style='font-size: 14px;'>signin.login42</p>
+        </div>
+        <p translate>signin.newto <span class='blue'translate [routerLink]="['/signup']">signin.signup</span></p>
+    </form>
+  </mat-card>
+</div>

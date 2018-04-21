@@ -1,0 +1,46 @@
+<div class='background'>
+    <div class='header'>
+  
+    </div>
+    <mat-card class='card'>
+      <mat-card-title>Sign Up</mat-card-title>
+      <div [hidden]='!upload'>
+          <input #fileInput (change)="uploadPicture($event)" id="file" type="file" name="file" accept="image/*">
+      </div>
+      <div id='smallprofile' (click)="fileInput.click()" style="background-image: url('http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png')">
+      </div>
+      <form #signInForm='ngForm'>
+          <mat-form-field class='input'>
+            <input [(ngModel)]="user.email" name='email' #email='ngModel' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" matInput placeholder="E-mail" required>
+            <mat-error *ngIf="email.invalid && (email.dirty || email.touched)" translate>
+              Please enter a valid e-mail
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class='input'>
+            <input [(ngModel)]="user.username" name='username' matInput [placeholder]="'signin.username' | translate" required>
+          </mat-form-field>
+
+          <mat-form-field class='input'>
+            <input [(ngModel)]="user.firstName" name='first' matInput placeholder="First Name" required>
+          </mat-form-field>
+
+          <mat-form-field class='input'>
+            <input [(ngModel)]="user.lastName" name='last' matInput placeholder="Last Name" required>
+          </mat-form-field>
+        
+          <mat-form-field class='input'>
+            <input [(ngModel)]="user.password" name='password' type='password' matInput #pwd='ngModel' [placeholder]="'signin.password' | translate" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" required>
+            <mat-error *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)" translate>
+              Password must be at least 6 characters long and must contain at least a number and a letter
+            </mat-error>
+          </mat-form-field>
+
+  
+          <button mat-raised-button class='input' style='margin-bottom: 20px; margin-top:30px;' [disabled]='!signInForm.valid'>Sign Up</button>
+          <mat-divider [inset]="true"></mat-divider>
+
+          <p>Already have an account? <span class='blue'translate [routerLink]="['/']">signin.signin</span></p>
+      </form>
+    </mat-card>
+  </div>

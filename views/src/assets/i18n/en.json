@@ -1,0 +1,13 @@
+{
+    "signin" : {
+        "signin": "Sign In",
+        "username" : "Username",
+        "password" : "Password",
+        "forgotPassword": "Forgot your password?",
+        "login42": "Login with 42 Intra",
+        "loginFacebook": "Login with Facebook",
+        "loginGoogle": "Login with Google",
+        "newto": "New to Hypertube?", 
+        "signup": "Sign up now."
+    }
+}

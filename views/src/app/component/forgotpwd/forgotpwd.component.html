@@ -1,0 +1,15 @@
+<div class='background'>
+    <div class='header'>
+  
+    </div>
+    <mat-card class='card'>
+      <mat-card-title>{{'signin.signin' | translate}}</mat-card-title>
+      <form #pwdForm='ngForm'>
+          <mat-form-field class='input'>
+            <input matInput [(ngModel)]='email' placeholder="E-mail" name='email' required>
+          </mat-form-field>
+
+          <button mat-raised-button class='input' style='margin-bottom: 20px;' [disabled]='!pwdForm.valid'>Send Recovery E-mail</button>
+      </form>
+    </mat-card>
+  </div>
