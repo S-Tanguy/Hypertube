@@ -4,8 +4,8 @@
   
     <div id='smallprofile' [matMenuTriggerFor]="appMenu" style="background-image: url('http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png')"></div>
     <mat-menu #appMenu="matMenu">
-      <button mat-menu-item>{{'home.account' | translate}}</button>
-      <button mat-menu-item>{{'home.logout' | translate}}</button>
+      <button [routerLink]="['/account']" mat-menu-item>{{'home.account' | translate}}</button>
+      <button (click)="logout()" mat-menu-item>{{'home.logout' | translate}}</button>
     </mat-menu>
   </div>
   <div>

@@ -8,4 +8,69 @@
       <button mat-menu-item>{{'home.logout' | translate}}</button>
     </mat-menu>
   </div>
+  <div class='body'>
+    <h1 translate>home.account</h1>
+    <mat-divider ></mat-divider>
+    <div class='section'>
+      <h2 class='mini-header'> {{'home.language' | translate}} </h2>
+      <mat-form-field class='form'>
+          <mat-select [(ngModel)]='user.language' name='lang'>
+            <mat-option value="en" (change)='changeLang()'>
+              English
+            </mat-option>
+            <mat-option value="fr" (change)='changeLang()'>
+              Français
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+    </div>
+    <mat-divider ></mat-divider>
+    <div class='section'>
+        <h2 class='mini-header'> {{'home.personal' | translate}} </h2>
+        <form #editForm='ngForm'>
+            <mat-form-field class='input'>
+              <input [(ngModel)]="user.email" name='email' #email='ngModel' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" matInput placeholder="E-mail" required>
+              <mat-error *ngIf="email.invalid && (email.dirty || email.touched)" translate>
+                Please enter a valid e-mail
+              </mat-error>
+            </mat-form-field> <br>
+  
+            <mat-form-field class='input'>
+              <input [(ngModel)]="user.login" name='username' matInput [placeholder]="'signin.username' | translate" required>
+            </mat-form-field> <br>
+  
+            <mat-form-field class='input'>
+              <input [(ngModel)]="user.given_name" name='first' matInput [placeholder]="'home.firstname' | translate" required>
+            </mat-form-field> <br>
+  
+            <mat-form-field class='input'>
+              <input [(ngModel)]="user.family_name" name='last' matInput [placeholder]="'home.lastname' | translate" required>
+            </mat-form-field> <br>
+              
+            <button mat-raised-button class='input' style='margin-bottom: 20px; margin-top:30px;' [disabled]='!editForm.valid'>{{'home.update' | translate }}</button>
+        </form>
+    </div>
+    <mat-divider></mat-divider>
+    <div class='section'>
+        <h2 class='mini-header'> {{'home.pwdchange' | translate}} </h2>
+        <form #editForm='ngForm'>
+  
+            <mat-form-field class='input'>
+                <input [(ngModel)]="password" name='password' type='password' matInput #pwd='ngModel' [placeholder]="'signin.password' | translate" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" required>
+                <mat-error *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)" translate>
+                  Password must be at least 6 characters long and must contain at least a number and a letter
+                </mat-error>
+              </mat-form-field>
+  
+              <mat-form-field class='input'>
+                <input [(ngModel)]="passwordCheck" name='password' type='password' matInput #repeat='ngModel' [placeholder]="'signin.password' | translate" required>
+                <mat-hint class='mat-error' *ngIf="noMatch && (repeat.dirty || repeat.touched)" translate>
+
+                </mat-hint>
+              </mat-form-field> <br>
+              
+            <button mat-raised-button class='input' style='margin-bottom: 20px; margin-top:30px;' [disabled]='!editForm.valid'>{{'home.confirm' | translate }}</button>
+        </form>
+    </div>
+  </div>
 </div>

@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateService } from '@ngx-translate/core';
+import { UserService } from './services/user.service';
 // import { AppTranslationModule } from './app.translation.module';
 
 import { MatCardModule } from '@angular/material/card';
@@ -15,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AppComponent } from './app.component';
 import { SigninComponent } from './component/signin/signin.component';
@@ -23,11 +25,13 @@ import { ForgotpwdComponent } from './component/forgotpwd/forgotpwd.component';
 import { HomeComponent } from './component/home/home.component';
 import { AccountComponent } from './component/account/account.component';
 
+
 const appRoutes: Routes = [
   { path: '', component: SigninComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'forgotPassword', component: ForgotpwdComponent },
-  { path: 'home', component: HomeComponent }
+  { path: 'home', component: HomeComponent }, 
+  { path: 'account', component: AccountComponent }
 ]
 
 export function createTranslateLoader(http: HttpClient) {
@@ -62,9 +66,10 @@ export function createTranslateLoader(http: HttpClient) {
     MatInputModule,
     MatButtonModule,
     MatDividerModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSelectModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

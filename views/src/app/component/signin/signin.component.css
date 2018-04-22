@@ -36,6 +36,14 @@
     width: 100%;
 }
 
+.logo {
+    cursor: pointer;
+}
+
+*:focus {
+    outline: 0;
+}
+
 button {
     color: white;
     background-color: #e50914;

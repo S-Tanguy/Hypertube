@@ -1,6 +1,18 @@
 {
+    "signin" : {
+        "username" : "Login",
+        "password" : "Mot de Passe",
+        "repeatpwd" : "Confirmer le nouveau mot de passe"
+    },
     "home": {
         "account": "Mon Compte",
-        "logout": "Se déconnecter d'Hypertube"
+        "logout": "Se déconnecter d'Hypertube",
+        "language": "Langue",
+        "personal": "Informations Personnelles",
+        "update": "Mettre à jour",
+        "firstname" : "Prénom",
+        "lastname": "Nom",
+        "pwdchange": "Modifier mon mot de passe",
+        "confirm": "Valider"
     }
 }

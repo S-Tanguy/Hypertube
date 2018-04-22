@@ -30,6 +30,10 @@
         cursor: pointer;
     }
 
+    *:focus {
+        outline: 0;
+    }
+
     .header {
         margin-left: 20px;
         padding-top: 15px;

@@ -1,8 +1,9 @@
 {
     "signin" : {
         "signin": "Sign In",
-        "username" : "Username",
+        "username" : "Login",
         "password" : "Password",
+        "repeatpwd" : "Confirm new password",
         "forgotPassword": "Forgot your password?",
         "login42": "Login with 42 Intra",
         "loginFacebook": "Login with Facebook",
@@ -13,6 +14,13 @@
 
     "home" : {
         "account": "My Account",
-        "logout": "Log out of Hypertube"
+        "logout": "Log out of Hypertube",
+        "language": "Language",
+        "personal": "Personal Information",
+        "update": "Update",
+        "firstname" : "First Name",
+        "lastname": "Last Name",
+        "pwdchange": "Change Password",
+        "confirm": "Confirm"
     }
 }
