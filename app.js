@@ -6,6 +6,7 @@ const express		= require('express'),
 	passport		= require('passport'),
 	userRouter		= require('./routes/user'),
 	authRouter		= require('./routes/auth'),
+	jwtMiddlware		= require('./middlewares/jwt'),
 	mongoose		= require('mongoose'),
 	database		= require('./models/database.js'),
 	app				= express();
@@ -18,7 +19,7 @@ mongoose.connect(database.url, (err)=>
 {
 	if (err)
 		throw  err;
-	
+
 	// configuration ===============================================================
 	app.use(logger('dev'));
 	app.use(express.json());
@@ -39,6 +40,10 @@ mongoose.connect(database.url, (err)=>
 	app.use(passport.initialize());
 	app.use(passport.session());
 	require('./middlewares/auth.js')(passport),
+
+	// jwt
+	app.use(jwtMiddlware.deserialize);
+
 
 	// Controllers ===============================================================
 	app.use('/', indexRouter);

@@ -113,7 +113,6 @@ module.exports = function (passport)
 	},
 		(accessToken, refreshToken, profile, next) =>
 		{
-			console.log(profile)
 
 			User.findOne({provider_user_id: profile.id, provider: 'google'}, (err, user) =>
 			{

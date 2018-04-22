@@ -46,7 +46,14 @@ router.post('/sign_in', (req, res, next) =>
 		if (err)
 			return (res.status(401).json({sucess: false, err}));
 
-		res.json({succes: true, message: 'User authenticated successfuly'});
+			let new_user = userUtils.tokenazableUser(user),
+				token = jwt.generateToken(new_user);
+
+			res.json({
+				sucess: true,
+				user: new_user,
+				token: token
+			})
 
 	})(req, res, next);
 })
@@ -62,8 +69,14 @@ router.get('/42/callback', (req, res, next) =>
 		if (err)
 			return (res.status(401).json({sucess: false, err}));
 
+		let new_user = userUtils.tokenazableUser(user),
+			token = jwt.generateToken(new_user);
 
-		res.json({succes: true, message: 'User authenticated successfuly'});
+		res.json({
+			sucess: true,
+			user: new_user,
+			token: token
+		})
 	})(req, res, next);
 });
 

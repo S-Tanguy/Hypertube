@@ -5,7 +5,8 @@ module.exports =
 	tokenazableUser: (user)=>
 	{
 		if (user)
-			delete user.id;
+			delete user.provider_user_id;
+
 		return (user);
 	}
 }

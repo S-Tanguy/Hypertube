@@ -16,6 +16,7 @@ userSchema 	= new Schema(
 	},
 	provider_user_id:
 	{
+		index: {unique: true},
 		type : String,
 	},
 	given_name:
