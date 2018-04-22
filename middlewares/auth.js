@@ -36,23 +36,24 @@ module.exports = function (passport)
     // =========================================================================
 	passport.use('local-signin', new localStrategy(
 	{
-		usernameField: 'email',
+		usernameField: 'login',
 		passwordField: 'password',
 		passReqToCallback : true // allows us to pass back the entire request to the callback
 
 	},
-	function(req, email, password, next)
+	function(req, login, password, next)
 	{
-		User.findOne({'email': email}, function(err, user)
+		User.findOne({'login': login}, function(err, user)
 		{
+
 			if (err)
 				return next(err);
 
 			if (!user)
-				return next(null, false, {message: 'Incorrect email.' });
+				return next(true, false, {message: 'Incorrect login.' });
 
 			if (!user.validPassword(password))
-				return next(null, false, 'Oops! Wrong password.');
+				return next(true, false, 'Oops! Wrong password.');
 
 			return next(null, user);
 		});
@@ -69,17 +70,17 @@ module.exports = function (passport)
 		passReqToCallback : true,
 		session: false
 	},
-	function(req, email, password, next)
+	function(req, login, password, next)
 	{
 		process.nextTick(function()
 		{
-			User.findOne({'email' :  email}, function(err, user)
+			User.findOne({'login' :  login}, function(err, user)
 			{
 				if (err)
 					return next(err);
 
 				if (user)
-					return next('The user already exist', false);
+					return next(true, false, {message: 'The user already exist'});
 
 				let newUser	= new User(
 				{

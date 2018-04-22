@@ -20,15 +20,14 @@ const nodemailer	= require('nodemailer'),
 	====================================  */
 
 // local
-router.post('/sign_in', (req, res, next) =>
+router.post('/signin', (req, res, next) =>
 {
-
 	passport.authenticate('local-signin', (err, user, errMessage)=>
 	{
-		if (err)
-			return (res.status(401).json({sucess: false, err}));
+		if (err || errMessage)
+			return (res.status(401).json({sucess: false, errMessage}));
 
-		let new_user = userUtils.cleanNewUser(user),
+		let new_user = userUtils.tokenazableUser(user),
 			token = jwt.generateToken(new_user);
 
 		res.json({
@@ -43,8 +42,8 @@ router.post('/sign_in', (req, res, next) =>
 	passport.authenticate('local-signup', (err, user, errMessage) =>
 	{
 
-		if (err)
-			return (res.status(401).json({sucess: false, err}));
+		if (err || errMessage)
+			return (res.status(401).json({sucess: false, err, errMessage}));
 
 		let new_user = userUtils.tokenazableUser(user),
 		token = jwt.generateToken(new_user);
@@ -70,7 +69,7 @@ router.get('/google', (req, res, next) =>
 				token = jwt.generateToken(new_user);
 
 			res.redirect(url.format({
-				pathname:"http://localhost:4200/",
+				pathname:"http://localhost:4200",
 				query: {token, sucess: true}
 			}))
 			// res.json({
@@ -98,7 +97,7 @@ router.get('/42/callback', (req, res, next) =>
 			token = jwt.generateToken(new_user);
 
 		res.redirect(url.format({
-			pathname:"http://localhost:4200/",
+			pathname:"http://localhost:4200",
 			query: {token, sucess: true}
 		}))
 	})(req, res, next);

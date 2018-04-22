@@ -6,7 +6,7 @@
     <mat-card-title>{{'signin.signin' | translate}}</mat-card-title>
     <form #signInForm='ngForm'>
         <mat-form-field class='input'>
-          <input name="username" [(ngModel)]="user.username" matInput [placeholder]="'signin.username' | translate">
+          <input name="login" [(ngModel)]="user.login" matInput [placeholder]="'signin.username' | translate">
         </mat-form-field>
       
         <mat-form-field class='input'>
@@ -14,7 +14,7 @@
         </mat-form-field>
 
         <p class='forgot' translate [routerLink]="['/forgotPassword']">signin.forgotPassword</p>
-        <button mat-raised-button class='input' style='margin-bottom: 20px;'>{{'signin.signin' | translate}}</button>
+        <button mat-raised-button class='input' style='margin-bottom: 20px;' (click)="signin('local')">{{'signin.signin' | translate}}</button>
         <mat-divider [inset]="true"></mat-divider>
         <div style='display: flex; flex-direction: row; height: 35px; margin-top: 15px;'>
           <img src='assets/images/fb.svg' class='mini'> <p (click)="signin('facebook')" class='blue' translate style='font-size: 14px;'>signin.loginFacebook</p>

@@ -33,7 +33,8 @@ const appRoutes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'forgotPassword', component: ForgotpwdComponent },
   { path: 'home', component: HomeComponent }, 
-  { path: 'account', component: AccountComponent }
+  { path: 'account', component: AccountComponent },
+  { path: ':token', component: SigninComponent }
 ]
 
 export function createTranslateLoader(http: HttpClient) {
