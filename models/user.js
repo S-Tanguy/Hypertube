@@ -55,6 +55,13 @@ userSchema 	= new Schema(
 		required: true,
 		type : String
 	},
+	lang:
+	{
+		required: true,
+		type : String,
+		enum: ['fr', 'en'],
+		default: 'en'
+	},
 	reset_pass:
 	{
 		type : String,

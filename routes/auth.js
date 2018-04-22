@@ -59,9 +59,11 @@ router.get('/42/callback', (req, res, next) =>
 
 	passport.authenticate('oauth2', (err, user) =>
 	{
-		// Successful authentication, redirect home.
-		console.log(user)
-		next()
+		if (err)
+			return (res.status(401).json({sucess: false, err}));
+
+
+		res.json({succes: true, message: 'User authenticated successfuly'});
 	})(req, res, next);
 });
 

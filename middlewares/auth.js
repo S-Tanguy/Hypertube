@@ -14,9 +14,9 @@ let bcrypt			= require('bcrypt-nodejs'),
 
 module.exports = function (passport)
 {
-	// =========================================================================
-    // passport session setup ==================================================
-    // =========================================================================
+		// =========================================================================
+	  // passport session setup ==================================================
+	  // =========================================================================
     passport.serializeUser(function(user, next)
     {
         next(null, user.id);
@@ -28,40 +28,6 @@ module.exports = function (passport)
             next(err, user);
         });
     });
-
-
-
-passport.use(new OAuth2Strategy({
-		authorizationURL: 'https://api.intra.42.fr/oauth/authorize',
-		tokenURL: 'https://api.intra.42.fr/oauth/token',
-		clientID:     process.env.CLIENT_ID_42,
-		clientSecret: process.env.CLIENT_SECRET_42,
-		callbackURL:  'http://localhost:3000/auth/42/callback'
-	},
-	function(accessToken, refreshToken, profile, done)
-	{
-		console.log('profile = ', accessToken)
-
-		request.get('https://api.intra.42.fr/v2/me',
-		{
-			 headers:{
-	            Authorization: ' Bearer ' + accessToken
-	       	}
-		}, function(err, httpResponse, body){
-			body = JSON.parse(body);
-
-			// console.log(body)
-			done(null, body)
-			// console.log('body = ', body)
-		});
-	}
-));
-
-
-
-
-
-
 
 
 
@@ -93,7 +59,7 @@ passport.use(new OAuth2Strategy({
 	}));
 
     // =========================================================================
-    // LOCAL Register =============================================================
+    // LOCAL Register ==========================================================
     // =========================================================================
 	passport.use('local-signup', new localStrategy(
 	{
@@ -183,4 +149,55 @@ passport.use(new OAuth2Strategy({
 			});
 		}
 	));
+
+
+
+	passport.use(new OAuth2Strategy({
+			authorizationURL: 'https://api.intra.42.fr/oauth/authorize',
+			tokenURL: 'https://api.intra.42.fr/oauth/token',
+			clientID:     process.env.CLIENT_ID_42,
+			clientSecret: process.env.CLIENT_SECRET_42,
+			callbackURL:  'http://localhost:3000/auth/42/callback'
+		},
+		function(accessToken, refreshToken, intraUser, next)
+		{
+			request.get('https://api.intra.42.fr/v2/me',
+			{
+				 headers: {  Authorization: ' Bearer ' + accessToken}
+			},
+			(err, httpResponse, profile) =>
+			{
+				profile = JSON.parse(profile);
+
+				User.findOne({provider_user_id: profile.id, provider: '42'}, (err, user) =>
+				{
+					if (err)
+						return next(err, user);
+					if (user)
+						return next(null, user)
+
+						let newUser	= new User(
+						{
+							given_name				: profile.first_name,
+							family_name				: profile.last_name,
+							login							: profile.login,
+							email							: profile.email,
+							picture						: profile.image_url,
+							provider					: '42',
+							provider_user_id	: profile.id
+						});
+
+						newUser.save((err)=>
+						{
+							if (err)
+								return next(err, user);
+
+							return next(null, newUser);
+						})
+					})
+			});
+		}
+	));
+
+
 }

@@ -25,16 +25,28 @@ movieSchema			= new Schema(
 			required: true,
 			type : String
 		},
+		genre:
+		{
+			required: true,
+			type : String,
+			lowercase: true,
+			trim: true
+		},
+		vote:
+		{
+			type : Number
+		},
 		author:
 		{
 			type : String,
-			lowercase: true
+			lowercase: true,
+			trim: true
 		},
 		description:
 		{
 			type: String
 		},
-		create_date:
+		creation_date:
 		{
 			type : Date
 		}
@@ -52,7 +64,7 @@ movieSchema			= new Schema(
 		{
 			required: true,
 			trim: true,
-			type : String	
+			type : String
 		}
 	}],
 });
