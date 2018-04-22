@@ -13,6 +13,8 @@
         "firstname" : "Prénom",
         "lastname": "Nom",
         "pwdchange": "Modifier mon mot de passe",
-        "confirm": "Valider"
+        "confirm": "Valider",
+        "profilePicture" : "Photo de profil",
+        "uploadPic": "Modifier ma photo"
     }
 }

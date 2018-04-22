@@ -24,6 +24,8 @@ import { SignupComponent } from './component/signup/signup.component';
 import { ForgotpwdComponent } from './component/forgotpwd/forgotpwd.component';
 import { HomeComponent } from './component/home/home.component';
 import { AccountComponent } from './component/account/account.component';
+import { ProfileComponent } from './component/profile/profile.component';
+import { StreamComponent } from './component/stream/stream.component';
 
 
 const appRoutes: Routes = [
@@ -45,7 +47,9 @@ export function createTranslateLoader(http: HttpClient) {
     SignupComponent,
     ForgotpwdComponent,
     HomeComponent,
-    AccountComponent
+    AccountComponent,
+    ProfileComponent,
+    StreamComponent
   ],
   imports: [
     BrowserModule,
