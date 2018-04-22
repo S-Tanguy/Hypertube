@@ -17,15 +17,11 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { AppComponent } from './app.component';
-<<<<<<< HEAD
 import { SigninComponent } from './component/signin/signin.component';
 import { SignupComponent } from './component/signup/signup.component';
 import { ForgotpwdComponent } from './component/forgotpwd/forgotpwd.component';
 import { HomeComponent } from './component/home/home.component';
 import { AccountComponent } from './component/account/account.component';
-=======
-import { LoginComponent } from './login/login.component';
->>>>>>> ad0659574423ff42cdf1588a72edfea207aa9971
 
 const appRoutes: Routes = [
   { path: '', component: SigninComponent },
@@ -41,15 +37,11 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-<<<<<<< HEAD
     SigninComponent,
     SignupComponent,
     ForgotpwdComponent,
     HomeComponent,
     AccountComponent
-=======
-    LoginComponent
->>>>>>> ad0659574423ff42cdf1588a72edfea207aa9971
   ],
   imports: [
     BrowserModule,
