@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-signin',
@@ -9,11 +10,15 @@ import { TranslateService } from '@ngx-translate/core';
 export class SigninComponent implements OnInit {
   user = {username: '', password: ''}
 
-  constructor(private TranslateService: TranslateService)
-  {
-  }
+  constructor(private TranslateService: TranslateService, private UserService: UserService)
+  {}
 
   ngOnInit() {
   }
 
+  signin(strategy)
+  {
+  	
+  	this.UserService.signin(null, strategy)
+  }
 }

@@ -99,7 +99,6 @@ module.exports = function (passport)
 					if (err)
 						return (next(err));
 
-					console.log('User succefully create');
 					return next(null, newUser);
 				});
 			});

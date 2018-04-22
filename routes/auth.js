@@ -9,8 +9,9 @@ const nodemailer	= require('nodemailer'),
 		userUtils	= require('../utils/userDataValidator'),
 		mailUtils	= require('../utils/mail'),
 		uploadUtils	= require('../utils/upload'),
-		router			= require('express').Router(),
-		bcrypt		= require('bcrypt-nodejs');
+		router		= require('express').Router(),
+		bcrypt		= require('bcrypt-nodejs'),
+		url			= require('url');
 
 
 
@@ -68,11 +69,15 @@ router.get('/google', (req, res, next) =>
 			let new_user = userUtils.tokenazableUser(user),
 				token = jwt.generateToken(new_user);
 
-			res.json({
-				sucess: true,
-				user: new_user,
-				token: token
-			})
+			res.redirect(url.format({
+				pathname:"http://localhost:4200/",
+				query: {token, sucess: true}
+			}))
+			// res.json({
+			// 	sucess: true,
+			// 	user: new_user,
+			// 	token: token
+			// })
 
 	})(req, res, next);
 })
@@ -92,11 +97,10 @@ router.get('/42/callback', (req, res, next) =>
 		let new_user = userUtils.tokenazableUser(user),
 			token = jwt.generateToken(new_user);
 
-		res.json({
-			sucess: true,
-			user: new_user,
-			token: token
-		})
+		res.redirect(url.format({
+			pathname:"http://localhost:4200/",
+			query: {token, sucess: true}
+		}))
 	})(req, res, next);
 });
 

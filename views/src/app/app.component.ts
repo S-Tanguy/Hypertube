@@ -13,10 +13,5 @@ export class AppComponent
 
   constructor(private http: Http)
   {
-  	this.http.get(`http://localhost:3000/users/`)
-  	.subscribe(users =>
-  	{
-  		console.log(users)
-  	})
   }
 }

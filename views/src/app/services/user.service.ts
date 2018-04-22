@@ -10,19 +10,35 @@ export class UserService {
 
   constructor(private http: Http) { }
 
-  signUpUser(user) {
+  signup(user) {
     const headers = new Headers()
     headers.append('Content-Type', 'application/json')
-    return this.http.post('http://localhost:3000/signup', user, { headers: headers })
+    return this.http.post('http://localhost:3000/auth/signup', user, { headers: headers })
       .map(res => res.json())
   }
 
-  authenticateUser(user) {
+  signin(user, strategy)
+  {
     const headers = new Headers()
-    headers.append('Content-Type', 'application/json')
-    return this.http.post('http://localhost:3000/login', user, { headers: headers })
-      .map(res => res.json())
+    headers.append('Content-Type', 'application/json');
+
+    let url;
+
+    if (strategy == 'local')
+      return this.http.post('http://localhost:3000/auth/signin', user, { headers: headers })
+        .map(res => res.json())
+
+        // console.log('sdsd00')
+    window.location.href = `http://localhost:3000/auth/${strategy}`;
+        
+    // return this.http.get(`http://localhost:3000/auth/${strategy}`)
+    // .map(res =>
+    //   {
+    //     res.json()
+    //     console.log('ds')
+      // })
   }
+
 
   storeUserData(token, email) {
     localStorage.setItem('token', token)
