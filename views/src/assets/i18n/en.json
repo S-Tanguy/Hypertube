@@ -21,6 +21,8 @@
         "firstname" : "First Name",
         "lastname": "Last Name",
         "pwdchange": "Change Password",
-        "confirm": "Confirm"
+        "confirm": "Confirm",
+        "uploadPic": "Upload new picture",
+        "profilePicture": "Profile Picture"
     }
 }

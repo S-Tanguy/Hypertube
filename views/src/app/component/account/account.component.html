@@ -47,30 +47,38 @@
               <input [(ngModel)]="user.family_name" name='last' matInput [placeholder]="'home.lastname' | translate" required>
             </mat-form-field> <br>
               
-            <button mat-raised-button class='input' style='margin-bottom: 20px; margin-top:30px;' [disabled]='!editForm.valid'>{{'home.update' | translate }}</button>
+            <button mat-raised-button class='input' (click)="updateProfile()" style='margin-bottom: 20px; margin-top:30px;' [disabled]='!editForm.valid'>{{'home.update' | translate }}</button>
         </form>
     </div>
     <mat-divider></mat-divider>
     <div class='section'>
         <h2 class='mini-header'> {{'home.pwdchange' | translate}} </h2>
-        <form #editForm='ngForm'>
+        <form #changePwdForm='ngForm'>
   
             <mat-form-field class='input'>
                 <input [(ngModel)]="password" name='password' type='password' matInput #pwd='ngModel' [placeholder]="'signin.password' | translate" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" required>
                 <mat-error *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)" translate>
                   Password must be at least 6 characters long and must contain at least a number and a letter
                 </mat-error>
-              </mat-form-field>
+              </mat-form-field> <br>
   
               <mat-form-field class='input'>
-                <input [(ngModel)]="passwordCheck" name='password' type='password' matInput #repeat='ngModel' [placeholder]="'signin.password' | translate" required>
+                <input [(ngModel)]="repeatpwd" name='password' type='password' matInput #repeat='ngModel' [placeholder]="'signin.repeatpwd' | translate" required>
                 <mat-hint class='mat-error' *ngIf="noMatch && (repeat.dirty || repeat.touched)" translate>
 
                 </mat-hint>
               </mat-form-field> <br>
               
-            <button mat-raised-button class='input' style='margin-bottom: 20px; margin-top:30px;' [disabled]='!editForm.valid'>{{'home.confirm' | translate }}</button>
+            <button mat-raised-button class='input' (click)='changePassword()' style='margin-bottom: 20px; margin-top:30px;' [disabled]='!changePwdForm.valid'>{{'home.confirm' | translate }}</button>
         </form>
+    </div>
+    <mat-divider></mat-divider>
+    <div class='section'>
+        <div [hidden]='!upload'>
+            <input #fileInput (change)="uploadPicture($event)" id="file" type="file" name="file" accept="image/*">
+        </div>
+        <h2 class='mini-header'> {{'home.profilePicture' | translate}} </h2>
+        <button mat-raised-button class='input' (click)='fileInput.click()' style='margin-bottom: 20px; margin-top:30px;'>{{'home.uploadPic' | translate }}</button>
     </div>
   </div>
 </div>
