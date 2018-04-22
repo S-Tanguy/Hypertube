@@ -64,7 +64,7 @@ module.exports = function (passport)
 	passport.use('local-signup', new localStrategy(
 	{
 		// by default, local strategy uses username and password, we will override with email
-		usernameField : 'email',
+		usernameField : 'login',
 		passwordField : 'password',
 		passReqToCallback : true,
 		session: false
@@ -79,7 +79,7 @@ module.exports = function (passport)
 					return next(err);
 
 				if (user)
-					return next(null, false, 'That email is already taken.');
+					return next('The user already exist', false);
 
 				let newUser	= new User(
 				{
@@ -91,12 +91,13 @@ module.exports = function (passport)
 					picture		: req.body.picture,
 				});
 
-				newUser.password = newUser.generateHash(password)
+				newUser.password = newUser.generateHash(password);
+				
 				// save the new user
 				newUser.save(function(err)
 				{
 					if (err)
-						throw err;
+						return (next(err));
 
 					console.log('User succefully create');
 					return next(null, newUser);

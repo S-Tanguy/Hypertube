@@ -60,7 +60,6 @@ userSchema 	= new Schema(
 	},
 	picture:
 	{
-		required: true,
 		type : String
 	},
 	lang:
