@@ -35,6 +35,13 @@ userSchema 	= new Schema(
 		trim: true,
 		validate: (str) => str.length > 2 && str.indexOf('$') < 0
 	},
+	login:
+	{
+		type: String,
+		lowercase: true,
+		trim: true,
+		validate: (str) => str.length > 2 && str.indexOf('$') < 0
+	},
 	password:
 	{
 		type : String,
