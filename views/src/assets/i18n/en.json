@@ -9,5 +9,10 @@
         "loginGoogle": "Login with Google",
         "newto": "New to Hypertube?", 
         "signup": "Sign up now."
+    },
+
+    "home" : {
+        "account": "My Account",
+        "logout": "Log out of Hypertube"
     }
 }

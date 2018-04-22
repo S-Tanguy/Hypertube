@@ -1,5 +1,8 @@
 @media (max-width: 740px) {
-
+    .logo {
+        height: 30px;
+        width: auto;
+    }
 }
 
 @media (min-width: 741px) {
@@ -16,6 +19,17 @@
         min-width: 100%;
         min-height: 100%;
     }
+
+    .logo {
+        height: 40px;
+        width: auto;
+    }
+}
+
+.header {
+    margin-left: 20px;
+    padding-top: 15px;
+    margin-bottom: 20px;
 }
 
 .input {

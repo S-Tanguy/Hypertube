@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignupComponent implements OnInit {
   upload = false;
-  user = { profilepicture: '', username: '', firstName: '', lastName: '', email: '', password: '' }
+  user = { picture: '', login: '', given_name: '', family_name: '', email: '', password: '' }
 
   constructor() { }
 

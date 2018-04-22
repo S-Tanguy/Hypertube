@@ -1,19 +1,19 @@
 <div class='background'>
   <div class='header'>
-
+    <img class='logo' src='assets/images/logo.png'>
   </div>
   <mat-card class='card'>
     <mat-card-title>{{'signin.signin' | translate}}</mat-card-title>
     <form #signInForm='ngForm'>
         <mat-form-field class='input'>
-          <input matInput [placeholder]="'signin.username' | translate">
+          <input name="username" [(ngModel)]="user.username" matInput [placeholder]="'signin.username' | translate">
         </mat-form-field>
       
         <mat-form-field class='input'>
-          <input type='password' matInput [placeholder]="'signin.password' | translate">
+          <input name="password" [(ngModel)]="user.password" type='password' matInput [placeholder]="'signin.password' | translate">
         </mat-form-field>
 
-        <p class='forgot' translate>signin.forgotPassword</p>
+        <p class='forgot' translate [routerLink]="['/forgotPassword']">signin.forgotPassword</p>
         <button mat-raised-button class='input' style='margin-bottom: 20px;'>{{'signin.signin' | translate}}</button>
         <mat-divider [inset]="true"></mat-divider>
         <div style='display: flex; flex-direction: row; height: 35px; margin-top: 15px;'>

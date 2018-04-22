@@ -1,0 +1,35 @@
+#smallprofile {
+    /* margin-right: auto; */
+    margin-left: auto;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    overflow: hidden;
+    cursor: pointer;
+    
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+    vertical-align: middle;
+    text-align: center;
+    color: transparent;
+    transition: all .3s ease;
+    text-decoration: none;
+}
+
+.logo {
+    padding-top: 10px;
+    height: 30px;
+    width: auto;
+    cursor: pointer;
+}
+
+.header {
+    padding-left: 60px;
+    padding-right: 20px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    background-color: black;
+}

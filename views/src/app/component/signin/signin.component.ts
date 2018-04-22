@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent implements OnInit {
+  user = {username: '', password: ''}
 
   constructor(private TranslateService: TranslateService)
   {

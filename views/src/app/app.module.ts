@@ -14,15 +14,20 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { AppComponent } from './app.component';
 import { SigninComponent } from './component/signin/signin.component';
 import { SignupComponent } from './component/signup/signup.component';
 import { ForgotpwdComponent } from './component/forgotpwd/forgotpwd.component';
+import { HomeComponent } from './component/home/home.component';
+import { AccountComponent } from './component/account/account.component';
 
 const appRoutes: Routes = [
   { path: '', component: SigninComponent },
-  { path: 'signup', component: SignupComponent }
+  { path: 'signup', component: SignupComponent },
+  { path: 'forgotPassword', component: ForgotpwdComponent },
+  { path: 'home', component: HomeComponent }
 ]
 
 export function createTranslateLoader(http: HttpClient) {
@@ -34,7 +39,9 @@ export function createTranslateLoader(http: HttpClient) {
     AppComponent,
     SigninComponent,
     SignupComponent,
-    ForgotpwdComponent
+    ForgotpwdComponent,
+    HomeComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +61,8 @@ export function createTranslateLoader(http: HttpClient) {
     MatCardModule,
     MatInputModule,
     MatButtonModule,
-    MatDividerModule
+    MatDividerModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
