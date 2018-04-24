@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-signup',
@@ -9,7 +11,9 @@ export class SignupComponent implements OnInit {
   upload = false;
   user = { picture: '', login: '', given_name: '', family_name: '', email: '', password: '' }
 
-  constructor() { }
+  constructor(private TranslateService: TranslateService, private UserService: UserService)
+  { }
+
 
   ngOnInit() {
   }
@@ -25,6 +29,12 @@ export class SignupComponent implements OnInit {
     //   that.user.profilepicture = that.base64Clean(toclean);
     //   that._apiService.updateUserProfile(that.user);
   };
-  
+
+
+  signup()
+  {
+  	console.log(this.user)
+  	this.UserService.signup(this.user);
+  }
 
 }

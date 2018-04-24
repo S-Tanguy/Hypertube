@@ -15,7 +15,17 @@ export class UserService {
     const headers = new Headers()
     headers.append('Content-Type', 'application/json')
     return this.http.post('http://localhost:3000/auth/signup', user, { headers: headers })
-      .subscribe(res => res.json())
+      .subscribe(res =>
+        {
+          let r = res.json();
+
+          if (r.token)
+          {
+              localStorage.setItem('token', r.token);
+              this.router.navigate(['/home']);
+          }
+        return r
+      })
   }
 
   signin(user, strategy)

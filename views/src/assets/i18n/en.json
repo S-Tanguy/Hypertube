@@ -8,8 +8,17 @@
         "login42": "Login with 42 Intra",
         "loginFacebook": "Login with Facebook",
         "loginGoogle": "Login with Google",
-        "newto": "New to Hypertube?", 
+        "newto": "New to Hypertube?",
         "signup": "Sign up now."
+    },
+
+    "signup" : {
+        "username" : "Login",
+        "signup": "Sign up now",
+        "firstname" : "First name",
+        "lastname" : "First name",
+        "password" : "Password",
+
     },
 
     "home" : {

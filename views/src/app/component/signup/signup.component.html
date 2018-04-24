@@ -28,7 +28,7 @@
           <mat-form-field class='input'>
             <input [(ngModel)]="user.family_name" name='last' matInput placeholder="Last Name" required>
           </mat-form-field>
-        
+
           <mat-form-field class='input'>
             <input [(ngModel)]="user.password" name='password' type='password' matInput #pwd='ngModel' [placeholder]="'signin.password' | translate" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" required>
             <mat-error *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)" translate>
@@ -36,7 +36,7 @@
             </mat-error>
           </mat-form-field>
 
-  
+
           <button mat-raised-button class='input' style='margin-bottom: 20px; margin-top:30px;' [disabled]='!signInForm.valid'>Sign Up</button>
           <mat-divider [inset]="true"></mat-divider>
 

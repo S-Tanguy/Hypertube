@@ -4,6 +4,14 @@
         "password" : "Mot de Passe",
         "repeatpwd" : "Confirmer le nouveau mot de passe"
     },
+
+    "signup" : {
+        "signup": "S'enregistre",
+        "username" : "Login",
+        "firstname" : "Prenom",
+        "lastname" : "Nom de famille",
+        "password" : "Mot de Passe",
+    },
     "home": {
         "account": "Mon Compte",
         "logout": "Se déconnecter d'Hypertube",
