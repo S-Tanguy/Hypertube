@@ -50,7 +50,7 @@ module.exports = function (passport)
 				return next(err);
 
 			if (!user)
-				return next(true, false, {message: 'Incorrect login.' });
+				return next({message: 'Incorrect login.' }, false);
 
 			if (!user.validPassword(password))
 				return next(true, false, 'Oops! Wrong password.');
@@ -80,7 +80,7 @@ module.exports = function (passport)
 					return next(err);
 
 				if (user)
-					return next(true, false, {message: 'The user already exist'});
+					return next({message: 'The user already exist'}, false);
 
 				let newUser	= new User(
 				{
@@ -89,11 +89,12 @@ module.exports = function (passport)
 					login		: req.body.login,
 					email		: req.body.email,
 					provider	: "local",
+					provider_user_id	: null,
 					picture		: req.body.picture,
 				});
 
 				newUser.password = newUser.generateHash(password);
-				
+
 				// save the new user
 				newUser.save(function(err)
 				{
