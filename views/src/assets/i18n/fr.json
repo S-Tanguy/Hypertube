@@ -12,7 +12,7 @@
         "firstname" : "Prenom",
         "lastname" : "Nom de famille",
         "password" : "Mot de Passe",
-        "signup": "Confirmer"
+        "confirm": "Confirmer"
     },
 
     "account": {

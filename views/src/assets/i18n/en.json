@@ -19,9 +19,7 @@
         "firstname" : "First name",
         "lastname" : "First name",
         "password" : "Password",
-        "signup": "Sign up now"
-
-
+        "confirm": "Confirm"
     },
 
     "account" : {

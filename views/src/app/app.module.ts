@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { HttpClient, HttpClientModule} from '@angular/common/http'
+import { HttpClient, HttpClientModule} from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,6 +17,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+
 
 import { AppComponent } from './app.component';
 import { SigninComponent } from './component/signin/signin.component';
@@ -33,11 +35,14 @@ import { NotAuthGuardGuard } from './services/notAuth-guard.guard';
 const appRoutes: Routes = [
   { path: '', component: SigninComponent, canActivate: [NotAuthGuardGuard] },
   { path: 'forgotPassword', component: ForgotpwdComponent },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuardGuard] }, 
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuardGuard] },
   { path: 'signup', component: SignupComponent, canActivate: [NotAuthGuardGuard] },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuardGuard] },
+  { path: 'profile', component: AccountComponent, canActivate: [AuthGuardGuard] },
+  { path: 'profile/:username', component: ProfileComponent, canActivate: [AuthGuardGuard]},
+  { path: 'stream/:movie', component: StreamComponent, canActivate: [AuthGuardGuard]},
   { path: ':token', component: SigninComponent }
-]
+];
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -74,14 +79,15 @@ export function createTranslateLoader(http: HttpClient) {
     MatButtonModule,
     MatDividerModule,
     MatMenuModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule
   ],
   providers: [UserService, AuthGuardGuard, NotAuthGuardGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor(translate: TranslateService) {
-    translate.addLangs(["en", "fr"]);
+    translate.addLangs(['en', 'fr']);
     translate.setDefaultLang('en');
 
     // let lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
