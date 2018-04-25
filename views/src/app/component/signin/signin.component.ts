@@ -9,22 +9,18 @@ import { Router, ActivatedRoute, Params} from '@angular/router';
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent implements OnInit {
-  user = {login: '', password: ''}
+  user = {login: '', password: ''};
 
-  constructor(private TranslateService: TranslateService, private UserService: UserService, private activatedRoute: ActivatedRoute)
-  {}
+  constructor(private TranslateService: TranslateService, private UserService: UserService, private activatedRoute: ActivatedRoute) {}
 
-  ngOnInit()
-  {
-  	this.activatedRoute.queryParams.subscribe((params: Params) =>
-  	{
-  		if (params['token'])
-  			this.UserService.strategySignin(params['token'])
- 	});
-  }
+  ngOnInit() {
+  this.activatedRoute.queryParams.subscribe((params: Params) => {
+    if (params['token'])
+    	this.UserService.strategySignin(params['token'])
+  });
+}
 
-  signin(strategy)
-  {
-  	this.UserService.signin(this.user, strategy);
+  signin(strategy) {
+    this.UserService.signin(this.user, strategy);
   }
 }

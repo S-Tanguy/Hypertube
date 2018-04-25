@@ -9,22 +9,20 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
-  user = { picture: '', login: '', given_name: '', family_name: '', email: '', password: '', lang: 'en' }
+  user = { picture: '', login: '', given_name: '', family_name: '', email: '', password: '', lang: 'en' };
   noMatch = true;
   password = '';
   repeatpwd = '';
   is_local_strategy = false;
   upload = false;
 
-  constructor(private UserService: UserService)
-  { }
+  constructor(private UserService: UserService) { }
 
   ngOnInit() {
     let curentUser = this.UserService.getCurrentUser();
 
-    console.log(curentUser)
-    this.user =
-    {
+    console.log(curentUser);
+    this.user = {
       picture: curentUser.picture,
       login: curentUser.login,
       given_name: curentUser.given_name,
@@ -33,14 +31,13 @@ export class AccountComponent implements OnInit {
       password: curentUser.password,
       lang: curentUser.lang
     };
-    this.is_local_strategy = curentUser.provider == 'local'; 
+    this.is_local_strategy = curentUser.provider === 'local';
   }
 
-  changeLang(e)
-  {
-    let {lang} = this.user;
+  changeLang(e) {
+    let { lang } = this.user;
 
-    this.UserService.update({lang})
+    this.UserService.update({lang});
   }
 
   passwordMatch() {
@@ -58,7 +55,7 @@ export class AccountComponent implements OnInit {
   }
 
   changePassword() {
-    console.log(this.user)
+    console.log(this.user);
   }
 
   uploadPicture(event) {

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { HttpClient, HttpClientModule} from '@angular/common/http'
+import { HttpClient, HttpClientModule} from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -38,6 +38,9 @@ const appRoutes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardGuard] },
   { path: 'signup', component: SignupComponent, canActivate: [NotAuthGuardGuard] },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuardGuard] },
+  { path: 'profile', component: AccountComponent, canActivate: [AuthGuardGuard] },
+  { path: 'profile/:username', component: ProfileComponent, canActivate: [AuthGuardGuard]},
+  { path: 'stream/:movie', component: StreamComponent, canActivate: [AuthGuardGuard]},
   { path: ':token', component: SigninComponent }
 ];
 

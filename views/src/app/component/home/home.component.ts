@@ -9,14 +9,15 @@ import { UserService } from '../../services/user.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private UserService: UserService)
-  {}
+  constructor(private _userService: UserService) {
+
+  }
 
   ngOnInit() {
   }
 
   logout() {
-  	this.UserService.logout();
+    this._userService.logout();
   }
 
 }
