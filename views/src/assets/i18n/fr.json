@@ -10,7 +10,7 @@
         "username" : "Login",
         "firstname" : "Prenom",
         "lastname" : "Nom de famille",
-        "password" : "Mot de Passe",
+        "password" : "Mot de Passe"
     },
     "home": {
         "account": "Mon Compte",

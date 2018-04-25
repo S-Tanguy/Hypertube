@@ -17,6 +17,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+
 
 import { AppComponent } from './app.component';
 import { SigninComponent } from './component/signin/signin.component';
@@ -32,10 +34,10 @@ const appRoutes: Routes = [
   { path: '', component: SigninComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'forgotPassword', component: ForgotpwdComponent },
-  { path: 'home', component: HomeComponent }, 
+  { path: 'home', component: HomeComponent },
   { path: 'account', component: AccountComponent },
   { path: ':token', component: SigninComponent }
-]
+];
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -72,14 +74,15 @@ export function createTranslateLoader(http: HttpClient) {
     MatButtonModule,
     MatDividerModule,
     MatMenuModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor(translate: TranslateService) {
-    translate.addLangs(["en", "fr"]);
+    translate.addLangs(['en', 'fr']);
     translate.setDefaultLang('en');
 
     // let lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';

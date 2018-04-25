@@ -17,8 +17,7 @@
         "signup": "Sign up now",
         "firstname" : "First name",
         "lastname" : "First name",
-        "password" : "Password",
-
+        "password" : "Password"
     },
 
     "home" : {
