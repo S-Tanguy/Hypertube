@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -8,13 +9,14 @@ import { UserService } from '../../services/user.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private _userService: UserService) { }
+  constructor(private UserService: UserService)
+  {}
 
   ngOnInit() {
   }
 
   logout() {
-
+  	this.UserService.logout();
   }
 
 }

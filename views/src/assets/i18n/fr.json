@@ -1,18 +1,22 @@
 {
     "signin" : {
-        "username" : "Login",
+        "login" : "Login",
         "password" : "Mot de Passe",
         "repeatpwd" : "Confirmer le nouveau mot de passe"
     },
 
     "signup" : {
+        "email" : "Email",
         "signup": "S'enregistre",
-        "username" : "Login",
+        "login" : "Login",
         "firstname" : "Prenom",
         "lastname" : "Nom de famille",
-        "password" : "Mot de Passe"
+        "password" : "Mot de Passe",
+        "confirm": "Confirmer"
     },
-    "home": {
+
+    "account": {
+        "login" : "Login",
         "account": "Mon Compte",
         "logout": "Se déconnecter d'Hypertube",
         "language": "Langue",

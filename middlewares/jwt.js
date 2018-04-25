@@ -25,6 +25,7 @@ module.exports =
 	   var token = req.headers['authorization'],
 		 		not_loged_user_acess_page = ['/auth'];
 
+
 		 if (not_loged_user_acess_page.indexOf(req.originalUrl) > -1)
 			 return next();
 
@@ -34,7 +35,7 @@ module.exports =
 		 token = token.replace('Bearer ', '');
 
 	   jwt.verify(token, process.env.JWT_SECRET, function(err, user)
-		 {
+		{
 	     if (err) {
 	       return res.status(401).json({
 	         success: false,

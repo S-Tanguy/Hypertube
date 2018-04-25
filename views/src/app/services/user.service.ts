@@ -4,6 +4,8 @@ import 'rxjs/add/operator/map'
 import { environment } from '../../environments/environment';
 import { tokenNotExpired } from 'angular2-jwt';
 import { Router } from '@angular/router';
+import * as decode from 'jwt-decode';
+
 
 @Injectable()
 export class UserService {
@@ -16,14 +18,16 @@ export class UserService {
     headers.append('Content-Type', 'application/json')
     return this.http.post('http://localhost:3000/auth/signup', user, { headers: headers })
       .subscribe(res =>
-        {
-          let r = res.json();
+      {
+        let r = res.json();
 
-          if (r.token)
-          {
-              localStorage.setItem('token', r.token);
-              this.router.navigate(['/home']);
-          }
+        if (r.token)
+        {
+            localStorage.setItem('token', r.token);
+            this.setCurrentUser(r.token);
+            this.router.navigate(['/home']);
+        }
+
         return r
       })
   }
@@ -34,15 +38,48 @@ export class UserService {
     headers.append('Content-Type', 'application/json');
 
     if (strategy != 'local')
-      window.location.href = `http://localhost:3000/auth/${strategy}`;
-    console.log(user)
+      return window.location.href = `http://localhost:3000/auth/${strategy}`;
+
+    // console.log(user)
     return this.http.post('http://localhost:3000/auth/signin', user, { headers: headers })
-      .subscribe(res => res.json())
+      .subscribe(res =>
+      {
+        let r = res.json();
+
+        if (r.token)
+            localStorage.setItem('token', r.token);
+          this.setCurrentUser(r.token);
+    
+        this.router.navigate(['/home']);
+        return r
+      })
+  }
+
+  update(data)
+  {
+    const token = localStorage.getItem('token');
+
+    const headers = new Headers();
+    headers.append('Authorization', "Bearer " + token);
+
+    return this.http.put('http://localhost:3000/user', data, { headers: headers })
+      .subscribe(res =>
+      {
+        let r = res.json();
+
+        if (r.token)
+        {
+          localStorage.setItem('token', r.token);
+          this.setCurrentUser(r.token);
+        }
+        return r
+      })
   }
 
   strategySignin(token)
   {
     localStorage.setItem('token', token);
+    this.setCurrentUser(token);
     this.router.navigate(['/home']);
   }
 
@@ -55,7 +92,17 @@ export class UserService {
   }
 
   getCurrentUser() {
-    return (sessionStorage.getItem('currentUser'));
+    let r = sessionStorage.getItem('currentUser');
+
+    return (JSON.parse(r));
+  }
+
+  setCurrentUser(tokenUser) {
+    tokenUser = decode(tokenUser);
+
+    tokenUser = JSON.stringify(tokenUser);
+    // console.log(tokenUser)
+    window.sessionStorage.setItem('currentUser', tokenUser);
   }
 
   loadToken() {
@@ -68,6 +115,7 @@ export class UserService {
   }
 
   logout() {
+    // console.log('ok')
     sessionStorage.clear();
     localStorage.clear();
     this.router.navigate(['/'])

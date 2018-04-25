@@ -22,7 +22,7 @@ const nodemailer	= require('nodemailer'),
 	====================================  */
 
 
-router.post('/user', (req, res, next) =>
+router.post('/', (req, res, next) =>
 {
 		passport.authenticate('local-signup', (err, user, errMessage) =>
 		{
@@ -39,7 +39,7 @@ router.post('/user', (req, res, next) =>
 			})
 		})(req, res, next);
 })
-.get('/user/:id', (req, res, next) =>
+.get('/:id', (req, res, next) =>
 {
 		User.findById(req.params.id, con).then((user)=>
 		{
@@ -52,30 +52,46 @@ router.post('/user', (req, res, next) =>
 		})
 })
 
-.put('/user', (req, res, next)=>
+.put('/', (req, res, next)=>
 {
-	let new_user = userUtils.cleanUpdateUser(req.body);
+	let findUser,
+		key,
+		data,
+		token,
+		updateUser = {};
+	
+	if (req.user.provider == 'local')
+		findUser = {login: req.user.login};
+	else
+		findUser = {email: req.user.email};
 
-
-	User.findByLogin(new_user.login, con)
+	User.findOne(findUser)
 	.then((user)=>
 	{
-		if (new_user.password)
-			new_user.password = bcrypt.hashSync(new_user.password, bcrypt.genSaltSync(8));
 
-		User.update(new_user, con)
-		.then(()=>
+		data = userUtils.updatableData(req.body);
+
+		for (key in data)
+			if (data.hasOwnProperty(key))
+				user[key]  = (key != 'password') ? data[key] : bcrypt.hashSync(new_user.password, bcrypt.genSaltSync(8));
+
+		user.save((err)=>
 		{
-			User.findById(user[0].id, con).then((updated_user)=>
+			if (err)
+				res.status(401).json({sucess: false, err });
+				
+			User.findOne({email: user.email})
+			.then((newUser)=>
 			{
-				updated_user = userUtils.tokenazableUser(updated_user);
-				let token = jwt.generateToken(updated_user);
+				console.log(newUser)
+				// console.log('///////////')
+				newUser = userUtils.tokenazableUser(newUser);
+				let token = jwt.generateToken(newUser);
 
 				res.json({sucess: true, message: 'User updated', token})
 			})
-			.catch((err)=>(res.status(401).json({sucess: false, message: 'Error while updating user.' })))
+			.catch((err)=>(res.status(401).json({sucess: false, err })))
 		})
-		.catch((err)=>(res.status(401).json({sucess: false, message: 'Error while updating user.' })))
 	})
 	.catch((user)=>(res.status(401).json({sucess: false, message: 'User not found.' })))
 })
