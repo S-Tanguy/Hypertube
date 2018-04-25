@@ -35,5 +35,9 @@
         "confirm": "Confirm",
         "uploadPic": "Upload new picture",
         "profilePicture": "Profile Picture"
+    },
+
+    "stream": {
+      "comment": "Write a comment..."
     }
 }

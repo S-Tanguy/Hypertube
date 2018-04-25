@@ -28,5 +28,9 @@
         "confirm": "Valider",
         "profilePicture" : "Photo de profil",
         "uploadPic": "Modifier ma photo"
+    },
+
+    "stream": {
+      "comment": "Poster un commentaire..."
     }
 }

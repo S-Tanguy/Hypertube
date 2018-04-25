@@ -1,0 +1,74 @@
+#smallprofile {
+  /* margin-right: auto; */
+  margin-left: auto;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  overflow: hidden;
+  cursor: pointer;
+
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+  vertical-align: middle;
+  text-align: center;
+  color: transparent;
+  transition: all .3s ease;
+  text-decoration: none;
+}
+
+.logo {
+  padding-top: 10px;
+  height: 30px;
+  width: auto;
+  cursor: pointer;
+}
+
+*:focus {
+  outline: 0;
+}
+
+.header {
+  padding-left: 60px;
+  padding-right: 20px;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  background-color: rgba(255, 255, 255, .1);
+}
+
+.rows {
+  display: flex;
+  flex-direction: row;
+}
+
+.background {
+  background-color: black;
+  /* height: 100%; */
+  width: 100%;
+  padding-bottom: 30px;
+}
+
+.body {
+  width: 85%;
+  margin-top: 25px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+video {
+  width: 100%;
+  height: auto;
+}
+
+.comments {
+  overflow-y: scroll;
+  width: 100%;
+  background-color: rgba(255, 255, 255, .4);
+  padding: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+}

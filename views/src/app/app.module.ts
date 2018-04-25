@@ -39,8 +39,8 @@ const appRoutes: Routes = [
   { path: 'signup', component: SignupComponent, canActivate: [NotAuthGuardGuard] },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuardGuard] },
   { path: 'profile', component: AccountComponent, canActivate: [AuthGuardGuard] },
-  { path: 'profile/:username', component: ProfileComponent, canActivate: [AuthGuardGuard]},
-  { path: 'stream/:movie', component: StreamComponent, canActivate: [AuthGuardGuard]},
+  { path: 'profile/:username', component: ProfileComponent, canActivate: [AuthGuardGuard] },
+  { path: 'stream/:movie', component: StreamComponent, canActivate: [AuthGuardGuard] },
   { path: ':token', component: SigninComponent }
 ];
 
