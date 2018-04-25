@@ -126,6 +126,7 @@ router.post('/send_password_reset_mail', (req, res) =>
 	mailUtils.reset_pass()
 	.then(res=> console.log(res))
 	.catch(err=> {throw err})
+
 	res.json({message: 'An email has been sent to you with an link.\nplease follow the link inside it.'});
 
 	return (false);
@@ -175,26 +176,33 @@ router.post('/send_password_reset_mail', (req, res) =>
 
 router.post('/reset_pass', (req, res) =>
 {
-	console.log('ok')
-	if (!req.body.reset_pass)
-		return (res.status(401).json({sucess: false, message: 'User no found'}));
-
-	User.findOne({reset_pass: req.body.reset_pass}, (err, user)=>
+	User.findOne({email: req.body.email, provider: 'local'}, (err, user)=>
 	{
 		if (err)
 			throw err;
 		if (!user)
 			return (res.status(401).json({sucess: false, message: 'User no found'}));
 
-	    user.password = user.generateHash(req.password);
-	    user.reset_pass = null;
-	    user.save((err)=>
-	    {
-	    	if (err)
-	    		throw err;
+		let reset_key = crypto.randomBytes(25).toString('hex'),
+			params = {to: user.email};
 
-			res.json({sucess: true, message: 'User password update successfuly.'});
-	    })
+
+		mailUtils.reset_pass(reset_key, params)
+		.then(res=>
+		{
+		    user.password = user.generateHash(req.password);
+		    user.reset_pass = reset_pass;
+		    user.save((err)=>
+		    {
+		    	if (err)
+		    		throw err;
+
+				res.json({sucess: true, message: 'User password update successfuly.'});
+		    })
+		})
+		.catch(err=> res.status(401).json({sucess: false, err}))
+		
+
 	})
 })
 

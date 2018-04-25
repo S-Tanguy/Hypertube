@@ -76,6 +76,22 @@ export class UserService {
       })
   }
 
+  reset_pass(email)
+  {
+    const token = localStorage.getItem('token');
+
+    const headers = new Headers();
+    headers.append('Authorization', "Bearer " + token);
+
+    return this.http.post('http://localhost:3000/user/reset_pass', {email})
+      .subscribe(res =>
+      {
+        let r = res.json();
+        return r
+      })
+
+  }
+
   strategySignin(token)
   {
     localStorage.setItem('token', token);
