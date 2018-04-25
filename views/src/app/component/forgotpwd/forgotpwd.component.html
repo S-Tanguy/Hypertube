@@ -9,7 +9,7 @@
             <input matInput [(ngModel)]='email' placeholder="E-mail" name='email' required>
           </mat-form-field>
 
-          <button mat-raised-button class='input' style='margin-bottom: 20px;' [disabled]='!pwdForm.valid'>Send Recovery E-mail</button>
+          <button mat-raised-button class='input' style='margin-bottom: 20px;' (click)='sendMail()' [disabled]='!pwdForm.valid'>Send Recovery E-mail</button>
       </form>
     </mat-card>
   </div>

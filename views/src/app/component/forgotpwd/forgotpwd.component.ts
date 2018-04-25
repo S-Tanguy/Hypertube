@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../services/user.service';
+
 
 @Component({
   selector: 'app-forgotpwd',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForgotpwdComponent implements OnInit {
   email = '';
-  constructor() { }
+  constructor(private UserService: UserService)
+  { }
 
   ngOnInit() {
+  }
+
+  sendMail()
+  {
+  	console.log(this.email)
+  	this.UserService.reset_pass(this.email);
   }
 
 }
