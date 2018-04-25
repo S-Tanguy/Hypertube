@@ -1,7 +1,7 @@
 {
     "signin" : {
         "signin": "Sign In",
-        "username" : "Login",
+        "login" : "Login",
         "password" : "Password",
         "repeatpwd" : "Confirm new password",
         "forgotPassword": "Forgot your password?",
@@ -13,15 +13,19 @@
     },
 
     "signup" : {
-        "username" : "Login",
+        "email" : "Email",
+        "login" : "Login",
         "signup": "Sign up now",
         "firstname" : "First name",
         "lastname" : "First name",
         "password" : "Password",
+        "signup": "Sign up now"
+
 
     },
 
-    "home" : {
+    "account" : {
+        "login" : "Login",
         "account": "My Account",
         "logout": "Log out of Hypertube",
         "language": "Language",

@@ -27,13 +27,15 @@ import { AccountComponent } from './component/account/account.component';
 import { ProfileComponent } from './component/profile/profile.component';
 import { StreamComponent } from './component/stream/stream.component';
 
+import { AuthGuardGuard } from './services/auth-guard.guard';
+import { NotAuthGuardGuard } from './services/notAuth-guard.guard';
 
 const appRoutes: Routes = [
-  { path: '', component: SigninComponent },
-  { path: 'signup', component: SignupComponent },
+  { path: '', component: SigninComponent, canActivate: [NotAuthGuardGuard] },
   { path: 'forgotPassword', component: ForgotpwdComponent },
-  { path: 'home', component: HomeComponent }, 
-  { path: 'account', component: AccountComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuardGuard] }, 
+  { path: 'signup', component: SignupComponent, canActivate: [NotAuthGuardGuard] },
+  { path: 'account', component: AccountComponent, canActivate: [AuthGuardGuard] },
   { path: ':token', component: SigninComponent }
 ]
 
@@ -74,7 +76,7 @@ export function createTranslateLoader(http: HttpClient) {
     MatMenuModule,
     MatSelectModule
   ],
-  providers: [UserService],
+  providers: [UserService, AuthGuardGuard, NotAuthGuardGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {

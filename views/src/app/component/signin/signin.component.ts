@@ -25,7 +25,6 @@ export class SigninComponent implements OnInit {
 
   signin(strategy)
   {
-  	console.log(this.user)
   	this.UserService.signin(this.user, strategy);
   }
 }
