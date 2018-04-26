@@ -1,20 +1,10 @@
-<div class='background'>
-  <div class='header'>
-    <img class='logo' [routerLink]="['/home']"  src='assets/images/logo.png'>
-    <div id='smallprofile' [matMenuTriggerFor]="appMenu" style="background-image: url('http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png')"></div>
-    <mat-menu #appMenu="matMenu">
-      <button [routerLink]="['/account']" mat-menu-item>{{'home.account' | translate}}</button>
-      <button (click)="logout()" mat-menu-item>{{'home.logout' | translate}}</button>
-    </mat-menu>
-  </div>
-  <div class='body'>
-    <div style='display: flex; flex-direction: row'>
-      <!-- <img src=''> -->
-      <div class='photo' style="background-image: url('http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png')"></div>
-      <div>
-        <h1>{{user.given_name}} {{user.family_name}}</h1> <br>
-        <em>{{user.login}}</em>
-      </div>
+<div class='body'>
+  <div style='display: flex; flex-direction: row'>
+    <!-- <img src=''> -->
+    <div class='photo' style="background-image: url('http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png')"></div>
+    <div>
+      <h1>{{user.given_name}} {{user.family_name}}</h1> <br>
+      <em>{{user.login}}</em>
     </div>
   </div>
 </div>

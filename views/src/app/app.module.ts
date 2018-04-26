@@ -39,7 +39,7 @@ const appRoutes: Routes = [
   { path: 'forgotPassword', component: ForgotpwdComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardGuard] },
   { path: 'signup', component: SignupComponent, canActivate: [NotAuthGuardGuard] },
-  { path: 'account', component: AccountComponent, canActivate: [AuthGuardGuard] },
+  // { path: 'account', component: AccountComponent, canActivate: [AuthGuardGuard] },
   { path: 'profile', component: AccountComponent, canActivate: [AuthGuardGuard] },
   { path: 'video/:id', component: VideoComponent, canActivate: [AuthGuardGuard] },
   { path: 'profile/:username', component: ProfileComponent, canActivate: [AuthGuardGuard] },

@@ -19,7 +19,11 @@ router.post('/', (req, res, next) =>
 {
 	res.json({message: 'Steam added'});
 })
-.get('/find', (req, res, next) =>
+
+
+
+
+router.get('/find', (req, res, next) =>
 {
 	let {name} = req.query,
 		lang = req.user ? req.user.lang : null;
@@ -32,7 +36,11 @@ router.post('/', (req, res, next) =>
 	.then(movies => res.json({sucess: true, movies: movies}))
 	.catch(err => res.status(401).json({sucess: false, message: err}))
 })
-.get('/:id', (req, res, next) =>
+
+
+
+
+router.get('/:id', (req, res, next) =>
 {
 	let {id} = req.params,
 		lang = req.user ? req.user.lang : null;
@@ -44,7 +52,11 @@ router.post('/', (req, res, next) =>
 	.then(movie => res.json({sucess: true, movie: movie}))
 	.catch(err => res.status(401).json({sucess: false, message: err}))
 })
-.get('/stream/:title', (req, res, next) =>
+
+
+
+
+router.get('/stream/:title', (req, res, next) =>
 {
 	let {title} = req.params,
 		lang = req.user ? req.user.lang : null;
@@ -52,20 +64,26 @@ router.post('/', (req, res, next) =>
 	if (title == undefined)
 		return (res.status(401).json({sucess: false, err: "Movie not found"}));
 
-	title = "Roi Lion 1991";
-
 	Movie.stream(title, lang)
 	.then(engine =>
 	{
-		console.log(engine)
+		Movie.download(engine, res);
 	})
-	.catch(err => res.status(401).json({sucess: false, message: err}))
+	.catch(err => res.status(401).json({sucess: false, message: 'sdsd'}))
 })
-.put('/', (req, res, next)=>
+
+
+
+
+router.put('/', (req, res, next)=>
 {
 	res.json({message: 'Steam updated'});
 })
-.delete('/:id', (req, res, next) =>
+
+
+
+
+router.delete('/:id', (req, res, next) =>
 {
 	res.json({message: 'Steam deleted'});
 })

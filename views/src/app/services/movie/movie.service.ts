@@ -31,4 +31,14 @@ export class MovieService
     return this.http.get(`http://localhost:3000/movie/${id}`, { headers: headers})
   }
 
+  stream(name)
+  {
+  	const token = localStorage.getItem('token');
+
+    const headers = new Headers();
+    headers.append('Authorization', "Bearer " + token);
+
+    return this.http.get(`http://localhost:3000/movie/stream/${name}`, { headers: headers})
+  }
+
 }

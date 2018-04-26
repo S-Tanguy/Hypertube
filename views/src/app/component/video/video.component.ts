@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
 import { MovieService } from '../../services/movie/movie.service';
 import {Router, ActivatedRoute, Params} from '@angular/router';
+// import { SafeResourceUrl, DomSanitizationService } from '@angular/platform-browser';
+import { SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-video',
@@ -11,6 +13,7 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 export class VideoComponent implements OnInit {
   comments = [];
   newcomment = '';
+  url : SafeResourceUrl; 
   movie = {};
 
   constructor(private _userService: UserService, private _movieService: MovieService, private route: ActivatedRoute, private router: Router) { }
@@ -30,7 +33,20 @@ export class VideoComponent implements OnInit {
         return;
 
       this.movie = res['movie'];
-      console.log(res);
+      let t = this.movie.release_date;
+      if (!t)
+        return;
+
+      t = new Date(t).getFullYear();
+
+      this.url = 'http://localhost:3000/movie/stream/' + this.movie.title + ' ' + t;
+
+      this._movieService.stream(this.url)
+      .subscribe(res =>
+      {
+        console.log('steam started', res);
+      })
+
     })
   }
 
