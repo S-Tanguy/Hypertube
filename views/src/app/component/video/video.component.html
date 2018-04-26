@@ -1,0 +1,47 @@
+<div class='background'>
+    <div class='body'>
+      <video src=""></video>
+      <div class='comments'>
+          <mat-form-field class='input'>
+            <input [(ngModel)]="newcomment" name='newcomment' matInput [placeholder]="'stream.comment' | translate">
+          </mat-form-field> <br>
+          <!-- <mat-card class="example-card" *ngFor="let comment of comments">
+              <mat-card-header>
+                <img mat-card-avatar [src]='comment.picture' class="example-header-image">
+                <mat-card-title>{{comment.login}}</mat-card-title>
+                <mat-card-subtitle>{{comment.comment}}</mat-card-subtitle>
+              </mat-card-header>
+          </mat-card> -->
+
+
+          
+      </div>
+      <mat-divider ></mat-divider>
+      <ul id='movieInfo'>
+          <li *ngIf='movie.title'>
+              <div>Title</div><div>{{movie.title}}</div>
+          </li>
+
+          <li *ngIf='movie.release_date'>
+              <div>release_date</div><div>{{movie.release_date}}</div>
+          </li>
+
+          <li *ngIf='movie.genres'>
+              <div>genres</div>
+              <div>
+                <a *ngFor="let genre of movie.genres" routerLink="{{'/category/'+genre.id}}">
+                  {{genre.name}}
+                </a>
+              </div>
+          </li>
+
+          <li *ngIf='movie.overview'>
+              <div>overview</div><div>{{movie.overview}}</div>
+          </li>
+
+          <li *ngIf='movie.poster_path'>
+            <img src="{{'https://image.tmdb.org/t/p/w342' + movie.poster_path}}" >
+          </li>
+      </ul>
+    </div>
+  </div>

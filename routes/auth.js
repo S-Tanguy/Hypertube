@@ -3,7 +3,7 @@
 const nodemailer	= require('nodemailer'),
 		crypto		= require('crypto'),
 		passport	= require('passport'),
-		User		= require('../models/user'),
+		User		= require('../models/userSchema'),
 		jwt 		= require('../middlewares/jwt.js'),
 		customAuth 	= require('../middlewares/customAuth.js'),
 		userUtils	= require('../utils/userDataValidator'),

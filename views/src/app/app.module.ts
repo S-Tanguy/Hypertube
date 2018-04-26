@@ -8,7 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateService } from '@ngx-translate/core';
-import { UserService } from './services/user.service';
+import { UserService } from './services/user/user.service';
+import { MovieService } from './services/movie/movie.service';
 // import { AppTranslationModule } from './app.translation.module';
 
 import { MatCardModule } from '@angular/material/card';
@@ -27,10 +28,11 @@ import { ForgotpwdComponent } from './component/forgotpwd/forgotpwd.component';
 import { HomeComponent } from './component/home/home.component';
 import { AccountComponent } from './component/account/account.component';
 import { ProfileComponent } from './component/profile/profile.component';
-import { StreamComponent } from './component/stream/stream.component';
+import { VideoComponent } from './component/video/video.component';
 
-import { AuthGuardGuard } from './services/auth-guard.guard';
-import { NotAuthGuardGuard } from './services/notAuth-guard.guard';
+import { AuthGuardGuard } from './services/auth/auth-guard.guard';
+import { NotAuthGuardGuard } from './services/auth/notAuth-guard.guard';
+import { CategoryComponent } from './category/category.component';
 
 const appRoutes: Routes = [
   { path: '', component: SigninComponent, canActivate: [NotAuthGuardGuard] },
@@ -39,9 +41,10 @@ const appRoutes: Routes = [
   { path: 'signup', component: SignupComponent, canActivate: [NotAuthGuardGuard] },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuardGuard] },
   { path: 'profile', component: AccountComponent, canActivate: [AuthGuardGuard] },
+  { path: 'video/:id', component: VideoComponent, canActivate: [AuthGuardGuard] },
   { path: 'profile/:username', component: ProfileComponent, canActivate: [AuthGuardGuard] },
-  { path: 'stream/:movie', component: StreamComponent, canActivate: [AuthGuardGuard] },
-  { path: ':token', component: SigninComponent }
+  { path: 'category/:catname', component: CategoryComponent, canActivate: [AuthGuardGuard] },
+  { path: ':token', component: SigninComponent, canActivate: [NotAuthGuardGuard] }
 ];
 
 export function createTranslateLoader(http: HttpClient) {
@@ -57,7 +60,8 @@ export function createTranslateLoader(http: HttpClient) {
     HomeComponent,
     AccountComponent,
     ProfileComponent,
-    StreamComponent
+    VideoComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +86,7 @@ export function createTranslateLoader(http: HttpClient) {
     MatSelectModule,
     MatIconModule
   ],
-  providers: [UserService, AuthGuardGuard, NotAuthGuardGuard],
+  providers: [UserService, MovieService, AuthGuardGuard, NotAuthGuardGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {

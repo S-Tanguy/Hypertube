@@ -6,7 +6,8 @@ const express		= require('express'),
 	passport		= require('passport'),
 	userRouter		= require('./routes/user'),
 	authRouter		= require('./routes/auth'),
-	jwtMiddlware		= require('./middlewares/jwt'),
+	movieRouter		= require('./routes/movie'),
+	jwtMiddlware	= require('./middlewares/jwt'),
 	mongoose		= require('mongoose'),
 	database		= require('./models/database.js'),
 	app				= express();
@@ -49,6 +50,7 @@ mongoose.connect(database.url, (err)=>
 	app.use('/', indexRouter);
 	app.use('/user', userRouter);
 	app.use('/auth', authRouter);
+	app.use('/movie', movieRouter);
 
 })
 

@@ -1,7 +1,7 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map'
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { tokenNotExpired } from 'angular2-jwt';
 import { Router } from '@angular/router';
 import * as decode from 'jwt-decode';

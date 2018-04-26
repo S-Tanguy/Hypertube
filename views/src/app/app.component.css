@@ -1,0 +1,148 @@
+#smallprofile {
+    /* margin-right: auto; */
+    /* margin-left: auto; */
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    overflow: hidden;
+    cursor: pointer;
+
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+    vertical-align: middle;
+    text-align: center;
+    color: transparent;
+    transition: all .3s ease;
+    text-decoration: none;
+}
+
+.logo {
+    padding-top: 10px;
+    height: 30px;
+    width: auto;
+    cursor: pointer;
+}
+
+*:focus {
+    outline: 0;
+}
+
+.header {
+  position: relative;
+  padding: 15px 20px 10px 60px;
+  display: flex;
+  flex-direction: row;
+  background-color: rgba(255, 255, 255, .1);
+}
+
+
+.header > div
+{
+  margin-left: auto;
+  margin-right: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.header input
+{
+  color: white;
+}
+
+.rows {
+    display: flex;
+    flex-direction: row;
+}
+
+.background {
+    background-color: black;
+    height: 100%;
+    width: 100%;
+}
+
+input[type=text] {
+  margin-left: auto;
+  width: 30px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+  background-color: transparent;
+  border: none;
+  background-image: url('/assets/images/search.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+}
+
+/* When the input field gets focus, change its width to 100% */
+input[type=text]:focus {
+  width: 50%;
+}
+
+
+
+/* search */
+
+#search_result
+{
+  position: absolute;
+  background: #1a1a1a;
+  z-index: 2;
+  height: calc(100vh - 75px);
+  width: 100vw;
+  top: 100%;
+  left: 0;
+  overflow: scroll;
+}
+
+#search_result > ul
+{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+#search_result > ul > li
+{
+  flex: 25%;
+  max-width: 25%;
+  padding: 10px 0;
+  list-style: none;
+}
+#search_result > ul > li img
+{
+  display: block;
+  margin: auto;
+  vertical-align: middle;
+}
+
+
+
+
+
+
+
+/*@media (max-width: 800px)
+{
+
+  #search_result > ul > li
+  {
+    flex: 50%;
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 600px)
+{
+  #search_result > ul > li
+  {
+    flex: 100%;
+    max-width: 100%;
+  }
+}
+
+*/
