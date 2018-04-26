@@ -23,14 +23,13 @@ export class VideoComponent implements OnInit {
       this.router.navigateByUrl('/home');
 
     this._movieService.findById(id)
-    .subscribe(res=>
-    {
+    .subscribe(res => {
       res = res.json();
 
-      if (!res || !res.movie)
+      if (!res || !res['movie'])
         return;
 
-      this.movie = res.movie;
+      this.movie = res['movie'];
       console.log(res);
     })
   }

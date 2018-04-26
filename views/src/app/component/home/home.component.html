@@ -1,4 +1,45 @@
-  <div>
+  <div class='background'>
+    <mat-card>
+      <h3 style='margin-bottom: 0' translate>stream.advanced</h3>
+      <div class='long-row'>
+        <mat-form-field class='select'>
+          <mat-select [placeholder]="'stream.genre' | translate" name='category' [(ngModel)]="search.category">
+            <mat-option *ngFor="let x of categories" [value]="x.id">
+              {{ x.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field> <br>
+        <div class='row'>
+          <mat-form-field style='margin-right: 10px;'>
+            <input matInput (keydown)="onlyNumbers($event)" maxlength='4' type="text" [placeholder]="'stream.startYY' | translate" [(ngModel)]="search.startYY"/>
+            <button mat-button *ngIf="search.startYY" matSuffix mat-icon-button aria-label="Clear" (click)="search.startYY=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+          <mat-form-field class='endYY'>
+              <input matInput (keydown)="onlyNumbers($event)" maxlength='4' type="text" [placeholder]="'stream.endYY' | translate" [(ngModel)]="search.endYY"/>
+              <button mat-button *ngIf="search.endYY" matSuffix mat-icon-button aria-label="Clear" (click)="search.endYY=''">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+        </div>
+        <div class='row'>
+            <mat-form-field style='margin-right: 10px;'>
+              <input matInput (keydown)="onlyNumbers($event)" maxlength='2' min='0' max='10' type="text" [placeholder]="'stream.minNote' | translate" [(ngModel)]="search.minNote"/>
+              <button mat-button *ngIf="search.minNote" matSuffix mat-icon-button aria-label="Clear" (click)="search.minNote=''">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput (keydown)="onlyNumbers($event)" maxlength='2' min='0' max='10' type="text" [placeholder]="'stream.maxNote' | translate" [(ngModel)]="search.maxNote"/>
+                <button mat-button *ngIf="search.maxNote" matSuffix mat-icon-button aria-label="Clear" (click)="search.maxNote=''">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+          </div>
+      </div>
+        <button mat-raised-button (click)='advancedSearch()'>{{'stream.search' | translate}}</button>
+    </mat-card>
     <div class='rows'>
       <img src=''>
     </div>

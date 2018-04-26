@@ -38,6 +38,15 @@
     },
 
     "stream": {
-      "comment": "Write a comment..."
+      "comment": "Write a comment...",
+      "genre": "Genre",
+      "between": "Between",
+      "and": "and",
+      "startYY": "Start Year",
+      "endYY": "End Year",
+      "search": "Search",
+      "advanced": "Advanced Search",
+      "minNote": "Minimum Note",
+      "maxNote": "Maximum Note"
     }
 }
