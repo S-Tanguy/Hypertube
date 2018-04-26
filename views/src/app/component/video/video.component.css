@@ -28,6 +28,10 @@
   outline: 0;
 }
 
+* {
+  font-family: 'Helvetica Neue', Helvetica,Arial, sans-serif;
+}
+
 .header {
   padding-left: 60px;
   padding-right: 20px;
@@ -65,7 +69,7 @@ video {
 .comments {
   overflow-y: scroll;
   width: 100%;
-  background-color: rgba(255, 255, 255, .4);
+  background-color: #f3f3f3;
   padding: 20px;
 }
 
