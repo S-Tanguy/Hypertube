@@ -4,6 +4,36 @@
   height: 100%;
 }
 
+/* search */
+
+.search_result
+{
+  background: #1a1a1a;
+  z-index: 2;
+  width: 100vw;
+  overflow: scroll;
+}
+
+.search_result > ul
+{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+.search_result > ul > li
+{
+  flex: 25%;
+  max-width: 25%;
+  padding: 10px 0;
+  list-style: none;
+}
+.search_result > ul > li img
+{
+  display: block;
+  margin: auto;
+  vertical-align: middle;
+}
+
 mat-card {
   background-color: #f3f3f3;
 }

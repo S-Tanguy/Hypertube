@@ -25,14 +25,31 @@ router.post('/', (req, res, next) =>
 
 router.get('/find', (req, res, next) =>
 {
-	let {name} = req.query,
+	let params = req.query,
 		lang = req.user ? req.user.lang : null;
 
-	console.log(name)
-	if (!name || !lang)
+	if (!params || !lang)
 		return (res.status(401).json({sucess: false, err: "Movie not found"}));
 
-	Movie.findByName(name, lang)
+	params['language'] = lang;
+
+	Movie.find(params, lang)
+	.then(data => res.json({sucess: true, data: data}))
+	.catch(err => res.status(401).json({sucess: false, message: err}))
+})
+
+
+
+router.get('/findByPopularity', (req, res, next) =>
+{
+	let {page} = req.query,
+		lang = req.user ? req.user.lang : null;
+
+	console.log(page)
+	if (!page || !lang)
+		return (res.status(401).json({sucess: false, err: "Movie not found"}));
+
+	Movie.searchByPopularity(page, lang)
 	.then(movies => res.json({sucess: true, movies: movies}))
 	.catch(err => res.status(401).json({sucess: false, message: err}))
 })

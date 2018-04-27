@@ -88,7 +88,7 @@ input[type=text]:focus {
 
 /* search */
 
-#search_result
+.search_result
 {
   position: absolute;
   background: #1a1a1a;
@@ -100,20 +100,20 @@ input[type=text]:focus {
   overflow: scroll;
 }
 
-#search_result > ul
+.search_result > ul
 {
   display: flex;
   flex-wrap: wrap;
   padding: 0 4px;
 }
-#search_result > ul > li
+.search_result > ul > li
 {
   flex: 25%;
   max-width: 25%;
   padding: 10px 0;
   list-style: none;
 }
-#search_result > ul > li img
+.search_result > ul > li img
 {
   display: block;
   margin: auto;
@@ -129,7 +129,7 @@ input[type=text]:focus {
 /*@media (max-width: 800px)
 {
 
-  #search_result > ul > li
+  .search_result > ul > li
   {
     flex: 50%;
     max-width: 50%;
@@ -138,7 +138,7 @@ input[type=text]:focus {
 
 @media (max-width: 600px)
 {
-  #search_result > ul > li
+  .search_result > ul > li
   {
     flex: 100%;
     max-width: 100%;

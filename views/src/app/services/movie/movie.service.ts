@@ -13,12 +13,22 @@ export class MovieService
 
   find(params)
   {
-  	const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
     const headers = new Headers();
     headers.append('Authorization', "Bearer " + token);
 
     return this.http.get(`http://localhost:3000/movie/find`, { headers: headers, params })
+  }
+
+  findByPopularity(params)
+  {
+  	const token = localStorage.getItem('token');
+
+    const headers = new Headers();
+    headers.append('Authorization', "Bearer " + token);
+
+    return this.http.get(`http://localhost:3000/movie/findByPopularity`, { headers: headers, params })
   }
 
   findById(id)

@@ -3,9 +3,9 @@
       <h3 style='margin-bottom: 0' translate>stream.advanced</h3>
       <div class='long-row'>
         <mat-form-field class='select'>
-          <mat-select [placeholder]="'stream.genre' | translate" name='category' [(ngModel)]="search.category">
-            <mat-option *ngFor="let x of categories" [value]="x.id">
-              {{ x.value }}
+          <mat-select [placeholder]="'stream.genre' | translate" name='with_genres' [(ngModel)]="search.with_genres">
+            <mat-option *ngFor="let genre of genres" [value]="genre.id">
+              {{ genre.name }}
             </mat-option>
           </mat-select>
         </mat-form-field> <br>
@@ -40,7 +40,13 @@
       </div>
         <button mat-raised-button (click)='advancedSearch()'>{{'stream.search' | translate}}</button>
     </mat-card>
-    <div class='rows'>
-      <img src=''>
+    <div class='rows search_result'>
+      <ul>
+        <li *ngFor="let video of movieList">
+          <a routerLink="{{'/video/'+video.id}}" (click)="emptyInput(video)">
+            <img src="{{'https://image.tmdb.org/t/p/w342' + video.poster_path}}" >
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
