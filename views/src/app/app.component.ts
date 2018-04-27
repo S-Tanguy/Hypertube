@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { UserService } from './services/user/user.service';
 import { MovieService } from './services/movie/movie.service';
-
+import { Router, ActivatedRoute } from '@angular/router';
+import { Observable } from "rxjs/Rx"
 
 @Component({
   selector: 'app-root',
@@ -12,19 +13,23 @@ import { MovieService } from './services/movie/movie.service';
 export class AppComponent
 {
   title = 'app';
-  is_login = false;
+  is_login = this._userService.loggedIn();
   searchValue = '';
   is_searching = false;
   movieList = [];
 
-  constructor(private _userService: UserService, private _movieService: MovieService)
+  constructor(private _userService: UserService, private _movieService: MovieService, private router: Router, private route: ActivatedRoute)
   {}
 
   ngOnInit()
   {
     let current_user = this._userService.getCurrentUser();
+  }
 
-    this.is_login = this._userService.loggedIn();
+  ngAfterViewInit() {
+    this._userService.signedIn.subscribe(val => {
+      this.is_login = val;
+    })
   }
 
   logout()

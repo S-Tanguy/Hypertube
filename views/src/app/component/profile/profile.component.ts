@@ -26,11 +26,11 @@ export class ProfileComponent implements OnInit {
     {
       res = res.json();
 
-      if (!res || !res.user)
+      if (!res || !res['user'])
         return (this.router.navigateByUrl('/home'));
 
       let tmpUser = this.user,
-        user = res.user,
+        user = res['user'],
         key;
 
 

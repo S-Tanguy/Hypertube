@@ -10,6 +10,7 @@ import * as decode from 'jwt-decode';
 @Injectable()
 export class UserService {
   authToken: any;
+  @Output() signedIn: EventEmitter<any> = new EventEmitter();
 
   constructor(private http: Http, private router: Router) { }
 
@@ -49,7 +50,7 @@ export class UserService {
         if (r.token)
             localStorage.setItem('token', r.token);
           this.setCurrentUser(r.token);
-    
+        this.signedIn.emit(true)
         this.router.navigate(['/home']);
         return r
       })
@@ -106,6 +107,7 @@ export class UserService {
   {
     localStorage.setItem('token', token);
     this.setCurrentUser(token);
+    this.signedIn.emit(true)
     this.router.navigate(['/home']);
   }
 
@@ -144,6 +146,7 @@ export class UserService {
     // console.log('ok')
     sessionStorage.clear();
     localStorage.clear();
+    this.signedIn.emit(false);
     this.router.navigate(['/'])
   }
 
