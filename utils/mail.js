@@ -9,23 +9,29 @@ function sendMail(params)
 {
   return new Promise((resolve, reject)=>
   {
-    if (!params || !params.to)
-      return (reject('Destinater not provided'));
+    //if (!params || !params.to)
+    //{
+    //  return (reject('Destinater not provided'));
+    //}
 
-    auth.user = params.user || process.env.MAIL_ADDRR;
-    auth.pass = params.pass || process.env.MAIL_PASS;
+  //  auth.user = params.user || process.env.MAIL_ADDRR;
+  //  auth.pass = params.pass || process.env.MAIL_PASS;
 
 
     transport = nodemailer.createTransport({
-      service: 'Gmail',
-      auth
+      service: 'gmail',
+      auth: {
+            user: 'aelharim42@gmail.com', // generated ethereal user
+            pass: 'matcha42' // generated ethereal password
+        }
     });
 
-    transport.sendMail({params}, function(err, response)
+    transport.sendMail(params, function(err, response)
     {
-      console.log(err)
         if (err)
-            return (reject(err));
+        {
+          return (reject({err, toto: "eiofhweiugfewiu"}));
+        }
 
         transport.close();
 
@@ -46,13 +52,13 @@ module.exports =
 
       params['html'] = params['html'] || "<b><a href='http://localhost:4200/pass_reset/"+ reset_key +"'>Link ✔</a></b>";
       params['subject'] = params['subject'] || "Matcha password reset";
-      params['from'] = params['from'] || "kacoulib ✔ <hypertube@42.fr>";
+      params['from'] = params['from'] || "PDG ✔ <aelharim42@gmail.com>";
 
       return sendMail(params)
-      .then(res => resolve(res))
-      .catch(err => reject(err));
+      .then(res => resolve("ok"))
+      .catch(err => {reject(err); console.log("2165844864")});
     })
-  }, 
+  },
 
   sendMail: sendMail
 }
