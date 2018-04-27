@@ -38,7 +38,7 @@ function sendMail(params)
 module.exports =
 {
   reset_pass: (reset_key, params) =>
-  {
+  {    
     return new Promise((resolve, reject)=>
     {
       if (!reset_key)

@@ -72,7 +72,12 @@ userSchema 	= new Schema(
 	{
 		type : String,
 		default: null
-	}
+	},
+	viewd_movies:
+	{
+		type : Schema.Types.ObjectId,
+		ref: 'Movie'
+	},
 });
 
 userSchema.methods.generateHash = function(password)

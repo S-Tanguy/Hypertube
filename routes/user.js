@@ -177,10 +177,12 @@ router.post('/send_password_reset_mail', (req, res) =>
 
 router.post('/reset_pass', (req, res) =>
 {
+	
 	User.findOne({email: req.body.email, provider: 'local'}, (err, user)=>
 	{
 		if (err)
 			throw err;
+  console.log(user)
 		if (!user)
 			return (res.status(401).json({sucess: false, message: 'User no found'}));
 
