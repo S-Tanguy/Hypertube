@@ -13,11 +13,7 @@ import { SafeResourceUrl } from '@angular/platform-browser';
 export class VideoComponent implements OnInit {
   comments = [];
   newcomment = '';
-<<<<<<< HEAD
   url : SafeResourceUrl;
-=======
-  url : SafeResourceUrl; 
->>>>>>> e8f6a947b4092909031248da439bd5567a4b924e
   movie = null;
 
   constructor(private _userService: UserService, private _movieService: MovieService, private route: ActivatedRoute, private router: Router) { }
