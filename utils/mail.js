@@ -35,6 +35,7 @@ function sendMail(params)
 
         transport.close();
 
+        console.log(resolve)
         return (resolve(response));
     });
   })

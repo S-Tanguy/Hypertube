@@ -21,24 +21,14 @@ export class MovieService
     return this.http.get(`http://localhost:3000/movie/find`, { headers: headers, params })
   }
 
-  findByPopularity(params)
+  subtitles(params)
   {
-  	const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
     const headers = new Headers();
     headers.append('Authorization', "Bearer " + token);
 
-    return this.http.get(`http://localhost:3000/movie/findByPopularity`, { headers: headers, params })
-  }
-
-  findById(id)
-  {
-  	const token = localStorage.getItem('token');
-
-    const headers = new Headers();
-    headers.append('Authorization', "Bearer " + token);
-
-    return this.http.get(`http://localhost:3000/movie/${id}`, { headers: headers})
+    return this.http.get(`http://localhost:3000/movie/subtitles`, { headers: headers, params })
   }
 
   stream(name)
@@ -47,7 +37,7 @@ export class MovieService
 
     const headers = new Headers();
     headers.append('Authorization', "Bearer " + token);
-
+    console.log('---------')
     return this.http.get(`http://localhost:3000/movie/stream/${name}`, { headers: headers})
   }
 

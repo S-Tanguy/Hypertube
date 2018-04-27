@@ -13,12 +13,8 @@ import { SafeResourceUrl } from '@angular/platform-browser';
 export class VideoComponent implements OnInit {
   comments = [];
   newcomment = '';
-<<<<<<< HEAD
   url : SafeResourceUrl;
-=======
-  url : SafeResourceUrl; 
->>>>>>> e8f6a947b4092909031248da439bd5567a4b924e
-  movie = null;
+  movie = {};
 
   constructor(private _userService: UserService, private _movieService: MovieService, private route: ActivatedRoute, private router: Router) { }
 
@@ -29,28 +25,45 @@ export class VideoComponent implements OnInit {
     if (id == undefined)
       this.router.navigateByUrl('/home');
 
-    this._movieService.findById(id)
+
+          // Get the video info
+
+    this._movieService.find({query_type: 'single_video', id})
     .subscribe(res => {
       res = res.json();
 
-      if (!res || !res['movie'])
+      if (!res || !res['data'])
         return;
 
-      this.movie = res['movie'];
-      let t = this.movie.release_date;
+      this.movie = res['data'];
+      let t = this.movie.release_date,
+        title;
 
       if (!t)
         return;
 
       t = new Date(t).getFullYear();
 
-      this.url = 'http://localhost:3000/movie/stream/' + this.movie.title + ' ' + t;
+      title = this.movie.title + ' ' + t;
+      this.url = 'http://localhost:3000/movie/stream/' + title;
 
+
+
+          // Get the video strea
+
+      // console.log('sdsdsdds')
       this._movieService.stream(this.url)
       .subscribe(res =>
-      {
-        console.log('steam started', res);
-      })
+      {        
+
+          this._movieService.subtitles({imdb_id: this.movie.imdb_id, title})
+          .subscribe(res =>
+          {
+            console.log(res)
+
+          })
+
+      }, err => console.log())
 
     })
   }

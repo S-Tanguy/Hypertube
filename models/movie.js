@@ -6,11 +6,93 @@ const fetch = require('node-fetch'),
 	torrentStream = require('torrent-stream'),
 	torrentSearch = new torrentSearchApi(),
  	transcoder = require('stream-transcoder'),
+	srt2vtt = require('srt2vtt'),
+ 	fs = require('fs'),
+ 	https = require('https'),
 
+
+
+	OS = require('opensubtitles-api'),
+	opensubtitles = require("subtitler"),
+	OpenSubtitles = new OS({
+	  useragent:'TemporaryUserAgent',
+	  username: 'aelharim',
+	  password: 'password',
+	  ssl: true
+	});
 	api_url = 'https://api.themoviedb.org/3';
 
 torrentSearch.enableProvider('Torrent9');
 
+
+function subtitles_fr(url, title) {
+  return new Promise((resolve, reject) => {
+        var file =  fs.createWriteStream("./"+title+".fr.srt");
+        var request = https.get(url, function(response) {
+          response.pipe(file);
+          file.on('finish', function(){
+            convert_srtfr(title);
+          })
+        });
+        if (request)
+          resolve("./"+title+".fr.srt");
+        else
+          reject('dl_fr_fail');
+  });
+}
+
+function convert_srtfr(title)
+{
+  var path = "./"+title+".fr.srt";
+  var dest = "./"+title+".fr.vtt";
+
+  const srtData = fs.readFileSync(path);
+  srt2vtt(srtData, (err, vttData) => {
+    if (err) connsole.log("erreur conversion fr srt to vtt" + err)
+    else {
+      fs.writeFileSync(dest, vttData);
+      fs.unlink(path, (err) => {
+        if (err) console.log("erreur 2 fr srt to vtt " + err)
+       })
+      }
+})
+}
+
+
+function subtitles_en(url, title) {
+  return new Promise((resolve, reject) => {
+        var file =  fs.createWriteStream("./"+title+".en.srt");
+        var request = https.get(url, function(response)
+        {
+          response.pipe(file);
+          file.on('finish', function()
+          {
+            convert_srten(title);
+          })
+        });
+
+        if (request)
+          resolve("./"+title+".en.srt");
+        else
+          reject('dl_en_fail');
+  });
+}
+
+function convert_srten(title)
+{
+  var path = "./"+title+".en.srt";
+  var dest = "./"+title+".en.vtt";
+  const srtData = fs.readFileSync(path);
+  srt2vtt(srtData, (err, vttData) => {
+    if (err) connsole.log("erreur conversion en srt to vtt" + err)
+    else {
+      fs.writeFileSync(dest, vttData);
+      fs.unlink(path, (err) => {
+        if (err) console.log("erreur 2 en srt to vtt " + err)
+       })
+      }
+})
+}
 
 function filterParams(params)
 {
@@ -40,11 +122,18 @@ module.exports =
 				query_url += '/discover/movie?'
 			else if (params['query_type'] == 'genre')
 				query_url += '/genre/movie/list?'
+			else if (params['query_type'] == 'single_video')
+			{
+				query_url += '/movie/' + params.id + '?';
+				params = {language: params.language};
+			}
 			else
 				reject('query_type not provided');
 
 			params['api_key'] = api_key;
 			query_url += filterParams(params)
+
+			console.log(query_url)
 
 			fetch(query_url)
 			.then(res=> resolve(res.json()))
@@ -52,25 +141,25 @@ module.exports =
 		})
 	},
 
-	findByName: (name, userLang) =>
-	{
-		return new Promise((resolve, reject) =>
-		{
-			fetch(`${api_url}/search/movie?api_key=${api_key}&query=${name}&language=${userLang}`)
-			.then(res=> resolve(res.json()))
-			.catch(err => reject(err))
-		})
-	},
+	// findByName: (name, userLang) =>
+	// {
+	// 	return new Promise((resolve, reject) =>
+	// 	{
+	// 		fetch(`${api_url}/search/movie?api_key=${api_key}&query=${name}&language=${userLang}`)
+	// 		.then(res=> resolve(res.json()))
+	// 		.catch(err => reject(err))
+	// 	})
+	// },
 
-	get_description: (id, userLang) =>
-	{
-		return new Promise((resolve, reject) =>
-		{
-			fetch(`${api_url}/movie/${id}?api_key=${api_key}&language=${userLang}`)
-			.then(res=> resolve(res.json()))
-			.catch(err => reject(err))
-		})
-	},
+	// get_description: (id, userLang) =>
+	// {
+	// 	return new Promise((resolve, reject) =>
+	// 	{
+	// 		fetch(`${api_url}/movie/${id}?api_key=${api_key}&language=${userLang}`)
+	// 		.then(res=> resolve(res.json()))
+	// 		.catch(err => reject(err))
+	// 	})
+	// },
 
 	stream: (title) =>
 	{
@@ -79,18 +168,19 @@ module.exports =
 			torrentSearch.search(['IpTorrents', 'Torrent9'], title, 'Movies', 20)
 			.then(torrents =>
 			{
-				// resolve(torrents[0]);
+				if (!torrents || !torrents[0])
+					reject("torrent not found")
+
 				torrentSearch.getMagnet(torrents[0])
 				.then(magnet =>
 				{
-					// console.log('///////13')
 					var engine = torrentStream(magnet, {path:'./movies'});
 					resolve(engine);
 				})
-				.catch(err => {console.log('----------');reject(err)})
+				.catch(err => reject(err))
 				
 			})
-			.catch(err => {console.log('************');reject(err)})
+			.catch(err => reject(err))
 		})
 	},
 
@@ -179,37 +269,23 @@ module.exports =
 		})
 	},
 
-	searchByPopularity: (page, userLang) =>
+	subtitles: async function (params)
 	{
-		return new Promise(function(resolve, reject)
-		{
-			fetch('https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=c0116d807d6617f1817949aca31dd697&primary_release_date.gte=1970&language=' + userLang + '&page=' + page)
-			.then(res => res.json())
-			.then(json => {
-			resolve(json);
-			});
-		});
-	},
+	  opensubtitles.api.login()
+	    .then(function(tok){
+	        var token = tok;
 
-	update: (new_user) =>
-	{
-		return new Promise((resolve, reject) =>
-		{
-			if (false)
-				return (reject('error'));
-
-			return (resolve('ok'))
-		})
-	},
-
-	delete: (id) =>
-	{
-		return new Promise((resolve, reject) =>
-		{
-			if (false)
-				return (reject('error'));
-
-			return (resolve('ok'))
-		})
-	},
+	        // got the auth token
+	              OpenSubtitles.search({
+	                  imdbid: params.imdb_id
+	              }).then(async subtitles => {
+	            //    console.log(subtitles.fr);
+	            //    console.log(subtitles.en);
+	                if (subtitles.fr)
+	                    await subtitles_fr(subtitles.fr.url, params.title);
+	                if (subtitles.en)
+	                    await subtitles_en(subtitles.en.url, params.title);
+	              });
+	    });
+	}
 };

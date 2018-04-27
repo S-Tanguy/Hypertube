@@ -128,12 +128,7 @@ router.post('/reset_pass', (req, res) =>
 	User.findOne({email: req.body.email, provider: 'local'}, (err, user)=>
 	{
 		if (err)
-<<<<<<< HEAD
-			throw err;
-  console.log(user)
-=======
 			return (res.status(401).json({sucess: false, message: 'User no found error 1'}));
->>>>>>> df6ae133596e4fc44a7da177804de4293ec524bf
 		if (!user)
 			return (res.status(401).json({sucess: false, message: 'User no found'}));
 
@@ -144,18 +139,18 @@ router.post('/reset_pass', (req, res) =>
 		mailUtils.reset_pass(reset_key, params)
 		.then(res=>
 		{
-		    user.password = user.generateHash(req.password);
-		    user.reset_pass = reset_pass;
+		    // user.password = User.generateHash(req.password);
+		    // user.reset_pass = reset_pass;
 				console.log('chien');
-		    user.save((err)=>
-		    {
-		    	if (err)
-						return (res.status(401).json({sucess: false, message: 'User no found error 1'}));
+		  //   user.save((err)=>
+		  //   {
+		  //   	if (err)
+				// 		return (res.status(401).json({sucess: false, message: 'User no found error 1'}));
 
-				res.json({sucess: true, message: 'User password update successfuly.'});
-		    })
+				// res.json({sucess: true, message: 'User password update successfuly.'});
+		  //   })
 		})
-		.catch(err=> res.status(401).json({sucess: false, err, toto: "flute"}))
+		.catch(err => res.status(401).json({sucess: false, err, toto: "flute"}))
 
 
 	})
