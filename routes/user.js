@@ -39,17 +39,18 @@ router.post('/', (req, res, next) =>
 			})
 		})(req, res, next);
 })
-.get('/:id', (req, res, next) =>
+.get('/:login', (req, res, next) =>
 {
-		User.findById(req.params.id, con).then((user)=>
-		{
-				return (res.json({sucess: true, user: user}));
-		})
-		.catch((err)=>
-		{
-				return (res.status(401).json({sucess: false, message: err}));
+	let login  = req.params.login;
 
-		})
+	console.log(login)
+	if (!login)
+		return (res.status(401).json({sucess: false, message: 'User not found'}));
+		
+	User.findOne({login})
+	.then((user)=>res.json({sucess: true, user: user}))
+	.catch((err)=>res.status(401).json({sucess: false, message: err}))
+
 })
 
 .put('/', (req, res, next)=>

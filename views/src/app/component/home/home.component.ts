@@ -9,26 +9,88 @@ import { MovieService } from '../../services/movie/movie.service';
 })
 export class HomeComponent implements OnInit {
   categories = [];
-  search = { startYY : '', endYY: '', minNote: '', maxNote: '', category: '' };
+  search = { startYY : '1970', endYY: '', minNote: '', maxNote: '', with_genres: '' };
+  movieList = [];
+  genres = [];
+
 
   constructor(private _movieService: MovieService) {
 
   }
 
-  ngOnInit() {
-    // this.categories = le tableau de categories
+  ngOnInit()
+  {
+    let params =
+    {
+      query_type : 'discover',
+      sort_by : 'popularity.desc',
+      'primary_release_date.gte' : '1996',
+      page : 1
+      
+    }
 
-  	// this._movieService.find('roi lion', 'fr')
-  	// .subscribe(res =>
-  	// {
-  	// 	res = res.json()
-  	// 	console.log(res)
+    this._movieService.find(params)
+    .subscribe(res => 
+    {
+      let movies = res.json();
 
-  	// })
+      if (movies)
+        movies = movies.data;
+
+      if (movies.total_results)
+        this.movieList = movies.results;
+
+      this._movieService.find({query_type : 'genre'})
+      .subscribe(res => 
+      {
+        let genres = res.json();
+
+        if (genres && genres.data && genres.data.genres)
+          this.genres = genres.data.genres;
+      });
+
+    });
   }
 
-  advancedSearch() {
-    // fonction qui envoie this.search
+  advancedSearch()
+  {
+    let params = {};
+
+    if (this.search.with_genres)
+      params['with_genres'] = this.search.with_genres;
+    if (this.search.startYY)
+      params['primary_release_date.gte'] = this.search.startYY;
+
+      // search = { startYY, endYY, minNote, maxNote, with_genres} = this.search;
+
+    params['query_type'] = 'discover';
+
+    if (this.search.startYY)
+      params['primary_release_date.gte'] = this.search.startYY;
+
+    if (this.search.endYY)
+      params['primary_release_date.lte'] = this.search.endYY;
+
+    if (this.search.minNote)
+      params['vote_average.gte'] = this.search.minNote;
+
+    if (this.search.maxNote)
+      params['vote_average.lte'] = this.search.maxNote;
+
+
+
+    this._movieService.find(params)
+    .subscribe(res => 
+    {
+      let movies = res.json();
+
+      if (movies)
+        movies = movies.data;
+
+      if (movies.total_results)
+        this.movieList = movies.results;
+      console.log(movies)
+    })
   }
 
   onlyNumbers(e: KeyboardEvent) {

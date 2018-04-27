@@ -8,20 +8,41 @@ import { ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  user = { login: 'test', given_name: 'Test', family_name: 'Nom', picture: '' };
+  user = { login: '', given_name: '', family_name: '', picture: '' };
+
+
   constructor(private _userService: UserService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     const username = this.route.snapshot.paramMap.get('username');
     const curentUser = this._userService.getCurrentUser().login;
 
-    // Regarder si c'est le nom de l'utilisateur logger. Si oui, rediriger vers account
-    if (username === this._userService.getCurrentUser()) {
-      this.router.navigateByUrl('/account');
-    } else {
-      // fonction pour rechercher le profil
-      // this.user = response;
-    }
+    // console.log(username, curentUser)
+    if (username === curentUser)
+      return (this.router.navigateByUrl('/profile'));
+
+    this._userService.get(username)
+    .subscribe(res =>
+    {
+      res = res.json();
+
+      if (!res || !res.user)
+        return (this.router.navigateByUrl('/home'));
+
+      let tmpUser = this.user,
+        user = res.user,
+        key;
+
+
+      for (key in tmpUser)
+        if (tmpUser.hasOwnProperty(key))
+          if (user[key])
+            this.user[key] = user[key];
+
+      if (!this.user.picture)
+        this.user.picture = 'http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png';
+
+    })
   }
 
   logout() {

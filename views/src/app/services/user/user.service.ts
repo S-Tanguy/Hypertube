@@ -76,6 +76,16 @@ export class UserService {
       })
   }
 
+  get(login)
+  {
+    const token = localStorage.getItem('token');
+
+    const headers = new Headers();
+    headers.append('Authorization', "Bearer " + token);
+
+    return this.http.get('http://localhost:3000/user/'+login, { headers: headers })
+  }
+
   reset_pass(email)
   {
     const token = localStorage.getItem('token');

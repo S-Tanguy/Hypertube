@@ -11,7 +11,7 @@
 		      <button (click)="logout()" mat-menu-item>{{'home.logout' | translate}}</button>
 		    </mat-menu>
 	    </div>
-	    <div id="search_result" *ngIf='is_searching'>
+	    <div class="search_result" *ngIf='is_searching'>
 			<ul>
 				<li *ngFor="let video of movieList">
 					<a routerLink="{{'/video/'+video.id}}" (click)="emptyInput(video)">
