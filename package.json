@@ -21,13 +21,16 @@
     "node-fetch": "^2.1.2",
     "nodemailer": "^4.6.4",
     "nodemon": "^1.17.3",
+    "opensubtitles-api": "^4.1.0",
     "passport": "^0.4.0",
     "passport-auth0": "^0.6.1",
     "passport-google-oauth20": "^1.0.0",
     "passport-local": "^1.0.0",
     "passport-oauth2": "^1.4.0",
     "request": "^2.85.0",
+    "srt2vtt": "^1.3.1",
     "stream-transcoder": "0.0.5",
+    "subtitler": "^2.6.0",
     "torrent-search-api": "^1.1.2",
     "torrent-stream": "^1.0.4"
   }

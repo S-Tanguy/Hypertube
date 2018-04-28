@@ -36,6 +36,7 @@ userSchema 	= new Schema(
 	},
 	login:
 	{
+		required: true,
 		type: String,
 		lowercase: true,
 		trim: true,
@@ -82,7 +83,7 @@ userSchema 	= new Schema(
 
 userSchema.methods.generateHash = function(password)
 {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
 };
 
 // checking if password is valid
@@ -91,6 +92,7 @@ userSchema.methods.validPassword = function(password)
 
 	if (password != null)
 	{
+		console.log(bcrypt.compareSync('toto123', this.password))
     	return bcrypt.compareSync(password, this.password);
 	}
     else

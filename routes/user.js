@@ -43,7 +43,6 @@ router.post('/', (req, res, next) =>
 {
 	let login  = req.params.login;
 
-	console.log(login)
 	if (!login)
 		return (res.status(401).json({sucess: false, message: 'User not found'}));
 		
@@ -66,15 +65,16 @@ router.post('/', (req, res, next) =>
 	else
 		findUser = {email: req.user.email};
 
+
 	User.findOne(findUser)
 	.then((user)=>
 	{
-
+		
 		data = userUtils.updatableData(req.body);
 
 		for (key in data)
 			if (data.hasOwnProperty(key))
-				user[key]  = (key != 'password') ? data[key] : bcrypt.hashSync(new_user.password, bcrypt.genSaltSync(8));
+				user[key] = (key != 'password') ? data[key] : user.generateHash(data[key]);
 
 		user.save((err)=>
 		{
@@ -84,8 +84,6 @@ router.post('/', (req, res, next) =>
 			User.findOne({email: user.email})
 			.then((newUser)=>
 			{
-				console.log(newUser)
-				// console.log('///////////')
 				newUser = userUtils.tokenazableUser(newUser);
 				let token = jwt.generateToken(newUser);
 
@@ -117,9 +115,9 @@ router.post('/', (req, res, next) =>
 
 
 
-/*	====================================
- 		============= EMAIL ================
- 		====================================  */
+	/*	====================================
+		============= EMAIL ================
+		====================================  */
 
 
 router.post('/reset_pass', (req, res) =>
@@ -132,25 +130,20 @@ router.post('/reset_pass', (req, res) =>
 		if (!user)
 			return (res.status(401).json({sucess: false, message: 'User no found'}));
 
-		let reset_key = crypto.randomBytes(25).toString('hex'),
-			params = {to: user.email};
+		user.reset_pass = crypto.randomBytes(15).toString('hex');
 
-
-		mailUtils.reset_pass(reset_key, params)
-		.then(res=>
+		mailUtils.reset_pass({to: user['email'], reset_pass: user['reset_pass']})
+		.then(msg =>
 		{
-		    user.password = user.generateHash(req.password);
-		    user.reset_pass = reset_pass;
-				console.log('chien');
-		    user.save((err)=>
-		    {
-		    	if (err)
-						return (res.status(401).json({sucess: false, message: 'User no found error 1'}));
+			user.save((err) =>
+			{
+				if (err)
+					return (res.status(401).json({sucess: false, err}));
 
-				res.json({sucess: true, message: 'User password update successfuly.'});
-		    })
+				res.json({sucess: true, message: 'Mail send.'});
+			})
 		})
-		.catch(err=> res.status(401).json({sucess: false, err, toto: "flute"}))
+		.catch(err => res.status(401).json({sucess: false, err}))
 
 
 	})

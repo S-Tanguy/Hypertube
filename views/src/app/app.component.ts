@@ -62,12 +62,13 @@ export class AppComponent
     }
     this.is_searching = true;
 
-    this._movieService.find({name})
+
+    this._movieService.find({query_type: 'search', query: name})
     .subscribe(res => 
     {
       // res = res.json();
       let movies = res.json();
-      if (!movies || !(movies = movies.movies))
+      if (!movies || !(movies = movies.data))
         return;
 
       if (!movies.total_results)
