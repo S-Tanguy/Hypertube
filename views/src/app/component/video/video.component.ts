@@ -51,7 +51,6 @@ export class VideoComponent implements OnInit {
 
           // Get the video strea
 
-      // console.log('sdsdsdds')
       this._movieService.stream(this.url)
       .subscribe(res =>
       {        
@@ -66,6 +65,10 @@ export class VideoComponent implements OnInit {
       }, err => console.log())
 
     })
+  }
+
+  postComment() {
+    // this.newcomment = '';
   }
 
   logout() {

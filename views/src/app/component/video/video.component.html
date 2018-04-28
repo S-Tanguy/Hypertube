@@ -5,11 +5,6 @@
           <source [src]="url" type="video/mp4">
           <track kind="subtitles" src="#" srclang="en">
         </video>
-      <div class='comments'>
-          <mat-form-field class='input'>
-            <input [(ngModel)]="newcomment" name='newcomment' matInput [placeholder]="'stream.comment' | translate">
-          </mat-form-field> <br>
-      </div>
 
       <mat-divider ></mat-divider>
       <ul id='movieInfo'>
@@ -38,5 +33,23 @@
             <img src="{{'https://image.tmdb.org/t/p/w342' + movie.poster_path}}" >
           </li>
       </ul>
+      <div class='comments'>
+          <mat-form-field class='input'>
+            <textarea [(ngModel)]="newcomment" name='newcomment' matInput [placeholder]="'stream.comment' | translate"> </textarea>
+          </mat-form-field>
+          <button mat-raised-button (click)='postComment()'>{{'stream.post' | translate}}</button>
+          <br>
+          <h3 translate>stream.comments</h3>
+          <div *ngIf="!comments.length">
+            <em translate>stream.noComment</em>
+          </div>
+          <mat-card class="example-card" *ngFor="let comment of comments">
+              <mat-card-header>
+                <img mat-card-avatar [src]='comment.picture' class="example-header-image">
+                <mat-card-title>{{comment.login}}</mat-card-title>
+                <mat-card-subtitle>{{comment.comment}}</mat-card-subtitle>
+              </mat-card-header>
+          </mat-card>
+      </div>
     </div>
   </div>

@@ -67,7 +67,7 @@ video {
 }
 
 .comments {
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   width: 100%;
   background-color: #f3f3f3;
   padding: 20px;
@@ -93,5 +93,5 @@ video {
 }
 
 mat-form-field {
-  width: 100%;
+  width: 90%;
 }

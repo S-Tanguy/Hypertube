@@ -47,6 +47,9 @@
       "search": "Search",
       "advanced": "Advanced Search",
       "minNote": "Minimum Note",
-      "maxNote": "Maximum Note"
+      "maxNote": "Maximum Note",
+      "post": "Post",
+      "comments": "Comments",
+      "noComment" :"No comments have been published for this movie yet."
     }
 }
