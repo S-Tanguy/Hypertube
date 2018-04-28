@@ -62,9 +62,26 @@ export class AccountComponent implements OnInit {
     this.UserService.update({email, login, password})
   }
 
-  uploadPicture(event)
-  {
+  base64Clean(base64) {
+    const marker = ';base64,';
+    const base64Index = base64.indexOf(marker) + marker.length;
+    const base64string = base64.substring(base64Index);
+    const test = 'data:image/jpeg;base64,' + base64string;
+    return (test);
+  }
 
+  uploadPicture(event: any) {
+    const pictureFile: HTMLInputElement = event.target || event.srcElement || event.currentTarget;
+    const myReader: FileReader = new FileReader();
+    let toclean;
+    myReader.readAsDataURL(pictureFile.files.item(0));
+    const that = this;
+    myReader.onloadend = function(loadEvent: any) {
+      toclean = loadEvent.target.result;
+      that.user.picture = that.base64Clean(toclean);
+      let {login, picture} = that.user;
+      that.UserService.update({login, picture})
+    };
   }
 
 }
