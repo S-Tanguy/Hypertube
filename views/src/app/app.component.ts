@@ -18,7 +18,7 @@ export class AppComponent
   searchValue = '';
   is_searching = false;
   movieList = [];
-  usePic;
+  usePic = '' as SafeUrl;
 
   constructor(private _userService: UserService, private _movieService: MovieService, private router: Router, private route: ActivatedRoute,
     private sanitizer: DomSanitizer) {}
@@ -41,7 +41,11 @@ export class AppComponent
         console.log(current_user)
         if (current_user && current_user.picture) 
           this.usePic =  this.sanitizer.bypassSecurityTrustUrl(current_user.picture);
+      } else if (!this.is_login){
+        this.usePic = '';
       }
+
+      console.log(this.usePic)
     })
   }
 

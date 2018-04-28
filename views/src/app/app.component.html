@@ -7,8 +7,8 @@
 
 				<!-- <div [hidden]='!is_login' id='smallprofile' [matMenuTriggerFor]="appMenu" style="background-image: url('http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png')"></div> -->
 				<div id='smallprofile'>
-					<img [hidden]='!is_login && !usePic' class='smallPic' [matMenuTriggerFor]="appMenu" [src]="usePic">{{usePic}}
-					<img [hidden]='!is_login' class='smallPic' [matMenuTriggerFor]="appMenu" src="http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png">{{usePic}}
+					<img [hidden]="!is_login && usePic == ''" class='smallPic' [matMenuTriggerFor]="appMenu" [src]="usePic">
+					<img [hidden]='!is_login' class='smallPic' [matMenuTriggerFor]="appMenu" src="http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png">
 				</div>
 		    <mat-menu #appMenu="matMenu">
 		      <button [routerLink]="['/profile']" mat-menu-item>{{'account.account' | translate}}</button>
