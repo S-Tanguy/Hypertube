@@ -11,6 +11,7 @@ import * as decode from 'jwt-decode';
 export class UserService {
   authToken: any;
   @Output() signedIn: EventEmitter<any> = new EventEmitter();
+  @Output() langUpdated: EventEmitter<any> = new EventEmitter();
 
   constructor(private http: Http, private router: Router) { }
 
@@ -73,6 +74,8 @@ export class UserService {
           localStorage.setItem('token', r.token);
           this.setCurrentUser(r.token);
         }
+        if (data && data.lang)
+          this.langUpdated.emit(true);
         return r
       })
   }
@@ -127,6 +130,8 @@ export class UserService {
 
   setCurrentUser(tokenUser) {
     tokenUser = decode(tokenUser);
+
+    localStorage.setItem('lang', tokenUser.lang)
 
     tokenUser = JSON.stringify(tokenUser);
     // console.log(tokenUser)

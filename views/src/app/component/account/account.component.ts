@@ -32,7 +32,14 @@ export class AccountComponent implements OnInit {
       password: curentUser.password,
       lang: curentUser.lang
     };
+
     this.is_local_strategy = curentUser.provider === 'local';
+
+    this.UserService.langUpdated.subscribe(bool => {
+      if (bool === true) {
+        location.reload();
+      }
+    })
   }
 
   changeLang(e)
@@ -40,6 +47,7 @@ export class AccountComponent implements OnInit {
     let { lang } = this.user;
 
     this.UserService.update({lang});
+    localStorage.setItem('lang', lang);
   }
 
   passwordMatch()

@@ -45,11 +45,8 @@ export class VideoComponent implements OnInit {
 
       t = new Date(t).getFullYear();
 
-      
       title = this.movie.title + ' ' + t;
-      console.log('TITLE', title)
       this.url = 'http://localhost:3000/movie/stream/' + title;
-      console.log('URL ==>', this.url)
 
 
           // Get the video strea
