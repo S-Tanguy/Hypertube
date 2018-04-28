@@ -12,7 +12,7 @@ module.exports =
 
 	updatableData: (data)=>
 	{
-		let fields = ['given_name', 'family_name', 'login', 'password', 'email', 'picture', 'lang'],
+		let fields = ['given_name', 'family_name', 'login', 'password', 'email', 'picture', 'lang', 'viewd_movies'],
 		r = {}, 
 		len = fields.length;
 

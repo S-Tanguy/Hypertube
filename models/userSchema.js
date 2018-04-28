@@ -76,7 +76,7 @@ userSchema 	= new Schema(
 	},
 	viewd_movies:
 	{
-		type : Schema.Types.ObjectId,
+		type : [Number],
 		ref: 'Movie'
 	},
 });
