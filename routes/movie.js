@@ -60,4 +60,19 @@ router.get('/stream/:title', (req, res, next) =>
 	.catch(err => res.status(401).json({sucess: false, message: 'sdsd'}))
 })
 
+	
+router.post('/comment', (req, res, next) =>
+{
+	let {movie_id, post} = req.body;
+
+	if (post == undefined)
+		return (res.status(401).json({sucess: false, err: "No comment posted"}));
+
+	// console.log(params)
+
+	Movie.comment({id: movie_id, user_id: req.user.id, post})
+	.then(comment => res.json({sucess: true, message: 'Comment posted'}))
+	.catch(err => res.status(401).json({sucess: false, message: 'Error while posting comment'}))
+})
+
 module.exports = router;

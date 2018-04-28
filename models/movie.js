@@ -196,6 +196,36 @@ module.exports =
 	                    await subtitles_en(subtitles.en.url, params.title);
 	              });
 	    });
+	},
+	
+	comment: function (params)
+	{
+		return new Promise((resolve, reject) =>
+		{
+			let { id, user_id, post } = params;
+
+			if (!id)
+				return (reject("Video not found"))
+
+			Movies.findOne({ id }, (err, movie)=>
+			{
+				if (err)
+					return reject(err);
+
+				if (!movie)
+					movie = new Movies({ id, message: [] });
+
+				movie.message.push({user_id, post})
+				movie.save((er)=>
+				{
+					if (err)
+						return (reject(err));
+
+					return resolve("Message posted");
+				})
+
+			})
+		})
 	}
 };
 
