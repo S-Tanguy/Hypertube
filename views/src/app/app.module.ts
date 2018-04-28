@@ -94,8 +94,7 @@ export class AppModule {
     translate.addLangs(['en', 'fr']);
     translate.setDefaultLang('en');
 
-    // let lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
-    // translate.use(lang)
-    translate.use('en');
+    let lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
+    translate.use(lang)
   }
 }
