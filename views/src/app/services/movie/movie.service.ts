@@ -23,9 +23,9 @@ export class MovieService
 
   subtitles(params)
   {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token'),
+    headers = new Headers();
 
-    const headers = new Headers();
     headers.append('Authorization', "Bearer " + token);
 
     return this.http.get(`http://localhost:3000/movie/subtitles`, { headers: headers, params })
@@ -33,12 +33,30 @@ export class MovieService
 
   stream(name)
   {
-  	const token = localStorage.getItem('token');
+  	const token = localStorage.getItem('token'),
+      headers = new Headers();
 
-    const headers = new Headers();
     headers.append('Authorization', "Bearer " + token);
-    console.log('---------')
+
     return this.http.get(`http://localhost:3000/movie/stream/${name}`, { headers: headers})
   }
 
+  getComment(params)
+  {
+    const token = localStorage.getItem('token'),
+      headers = new Headers();
+
+    headers.append('Authorization', "Bearer " + token);
+    return this.http.get('http://localhost:3000/movie/comment', { headers: headers, params })
+  }
+
+  postComment(data)
+  {
+    const token = localStorage.getItem('token'),
+      headers = new Headers();
+
+    headers.append('Authorization', "Bearer " + token);
+
+    return this.http.post('http://localhost:3000/movie/comment', data, { headers: headers })
+  }
 }

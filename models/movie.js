@@ -9,6 +9,7 @@ const fetch = require('node-fetch'),
 	srt2vtt = require('srt2vtt'),
  	fs = require('fs'),
  	https = require('https'),
+	Movies = require('./movieSchema'),
 
 
 
@@ -198,32 +199,49 @@ module.exports =
 	    });
 	},
 	
-	comment: function (params)
+	postComment: function (params)
 	{
 		return new Promise((resolve, reject) =>
 		{
-			let { id, user_id, post } = params;
+			let { movie_id, login, picture, post } = params;
 
-			if (!id)
+
+			if (isNaN(movie_id))
 				return (reject("Video not found"))
 
-			Movies.findOne({ id }, (err, movie)=>
+			Movies.findOne({ movie_id }, (err, movie)=>
 			{
 				if (err)
 					return reject(err);
 
 				if (!movie)
-					movie = new Movies({ id, message: [] });
+					movie = new Movies({ movie_id, message: [] });
 
-				movie.message.push({user_id, post})
-				movie.save((er)=>
+				movie.message.push({user: {login, picture}, post})
+				movie.save(function (err)
 				{
 					if (err)
 						return (reject(err));
 
 					return resolve("Message posted");
 				})
+				return (resolve("ok"))
+			})
+		})
+	},
+	
+	getComment: function (movie_id)
+	{
+		return new Promise((resolve, reject) =>
+		{
+			if (!movie_id)
+				return (reject("Video id not provided not found"))
 
+			Movies.findOne({ movie_id }, (err, movie)=>
+			{
+				if (err)
+					return reject(err);
+				return (resolve(movie ? movie.message : []))
 			})
 		})
 	}

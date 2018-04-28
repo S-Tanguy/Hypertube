@@ -15,12 +15,15 @@ export class VideoComponent implements OnInit {
   newcomment = '';
   url : SafeResourceUrl;
   movie = null;
+  current_user = null;
 
   constructor(private _userService: UserService, private _movieService: MovieService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit()
   {
     let id = this.route.snapshot.paramMap.get('id');
+
+    this.current_user = this._userService.getCurrentUser();
 
     if (id == undefined)
       this.router.navigateByUrl('/home');
@@ -59,11 +62,27 @@ export class VideoComponent implements OnInit {
 
       this._userService.update({viewd_movies: id});
 
+      console.log(id)
+      this._movieService.getComment({movie_id: id})
+      .subscribe(res =>
+      {
+        res = res.json();
+
+        if (res.data)
+          this.comments = res.data;
+      })
+
     })
   }
 
-  postComment() {
-    // this.newcomment = '';
+  postComment()
+  {
+    this._movieService.postComment({ movie_id: this.movie.id, post: this.newcomment })
+    .subscribe(res=>
+    {
+      this.comments.push({user: {login: this.current_user.login, picture: this.current_user.picture}, comment: this.newcomment})
+     this.newcomment = '';
+    })
   }
 
   logout() {

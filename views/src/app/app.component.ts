@@ -41,7 +41,6 @@ export class AppComponent
 
       if (this.is_login) {
         let current_user = this._userService.getCurrentUser();
-        console.log(current_user)
         if (current_user && current_user.picture) 
           this.usePic =  this.sanitizer.bypassSecurityTrustUrl(current_user.picture);
       } else if (!this.is_login){

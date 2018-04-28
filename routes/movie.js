@@ -63,16 +63,28 @@ router.get('/stream/:title', (req, res, next) =>
 	
 router.post('/comment', (req, res, next) =>
 {
-	let {movie_id, post} = req.body;
+	let {movie_id, post} = req.body,
+		{login, picture} = req.user;
 
 	if (post == undefined)
 		return (res.status(401).json({sucess: false, err: "No comment posted"}));
 
-	// console.log(params)
-
-	Movie.comment({id: movie_id, user_id: req.user.id, post})
+	// console.log(req.user)
+	Movie.postComment({movie_id, login, picture, post})
 	.then(comment => res.json({sucess: true, message: 'Comment posted'}))
 	.catch(err => res.status(401).json({sucess: false, message: 'Error while posting comment'}))
+})
+	
+router.get('/comment', (req, res, next) =>
+{
+	let {movie_id} = req.query;
+
+	if (movie_id == undefined)
+		return (res.status(401).json({sucess: false, err: "Video id not provided not found"}));
+
+	Movie.getComment(movie_id)
+	.then(data => res.json({sucess: true, data}))
+	.catch(err => res.status(401).json({sucess: false, message: 'Error while getting comment'}))
 })
 
 module.exports = router;

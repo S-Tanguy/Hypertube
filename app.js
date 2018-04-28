@@ -36,7 +36,6 @@ mongoose.connect(database.url, (err)=>
 		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
 		next();
 	});
-
 	// passport
 	app.use(passport.initialize());
 	app.use(passport.session());

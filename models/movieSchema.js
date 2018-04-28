@@ -8,57 +8,28 @@ let	mongoose		= require('mongoose'),
 // Schema
 movieSchema			= new Schema(
 {
-	info:
+	movie_id:
 	{
-		thumbnail:
-		{
-			required: true,
-			type : String
-		},
-		title:
-		{
-			required: true,
-			type : String
-		},
-		url:
-		{
-			required: true,
-			type : String
-		},
-		genre:
-		{
-			required: true,
-			type : String,
-			lowercase: true,
-			trim: true
-		},
-		vote:
-		{
-			type : Number
-		},
-		author:
-		{
-			type : String,
-			lowercase: true,
-			trim: true
-		},
-		description:
-		{
-			type: String
-		},
-		creation_date:
-		{
-			type : Date
-		}
+		required: true,
+		type : Number
 	},
 
 	message:
 	[{
 		user :
 		{
-			required: true,
-			type : mongoose.Schema.Types.ObjectId,
-			ref : 'Users'
+			login:
+			{
+				required: true,
+				type: String,
+				lowercase: true,
+				trim: true,
+				validate: (str) => str.length > 2 && str.indexOf('$') < 0
+			},
+			picture:
+			{
+				type : String
+			}
 		},
 		post:
 		{
