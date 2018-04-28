@@ -16,12 +16,13 @@ export class AccountComponent implements OnInit {
   is_local_strategy = false;
   upload = false;
 
-  constructor(private UserService: UserService) { }
+  constructor(private UserService: UserService)
+  { }
 
-  ngOnInit() {
+  ngOnInit()
+  {
     let curentUser = this.UserService.getCurrentUser();
 
-    console.log(curentUser);
     this.user = {
       picture: curentUser.picture,
       login: curentUser.login,
@@ -34,31 +35,35 @@ export class AccountComponent implements OnInit {
     this.is_local_strategy = curentUser.provider === 'local';
   }
 
-  changeLang(e) {
+  changeLang(e)
+  {
     let { lang } = this.user;
 
     this.UserService.update({lang});
   }
 
-  passwordMatch() {
-    if (this.password !== this.repeatpwd) {
+  passwordMatch()
+  {
+    if (this.password !== this.repeatpwd)
       this.noMatch = true;
-    } else {
+    else
       this.noMatch = false;
-    }
-    console.log(this.user)
   }
 
-  updateProfile() {
+  updateProfile()
+  {
     let {email, login, given_name, family_name} = this.user;
     this.UserService.update({email, login, given_name, family_name})
   }
 
-  changePassword() {
-    console.log(this.user);
+  changePassword(e)
+  {
+    let {email, login, password} = this.user;
+    this.UserService.update({email, login, password})
   }
 
-  uploadPicture(event) {
+  uploadPicture(event)
+  {
 
   }
 

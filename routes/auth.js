@@ -5,7 +5,6 @@ const nodemailer	= require('nodemailer'),
 		passport	= require('passport'),
 		User		= require('../models/userSchema'),
 		jwt 		= require('../middlewares/jwt.js'),
-		customAuth 	= require('../middlewares/customAuth.js'),
 		userUtils	= require('../utils/userDataValidator'),
 		mailUtils	= require('../utils/mail'),
 		uploadUtils	= require('../utils/upload'),
@@ -22,6 +21,8 @@ const nodemailer	= require('nodemailer'),
 // local
 router.post('/signin', (req, res, next) =>
 {
+	console.log(2)
+
 	passport.authenticate('local-signin', (err, user, errMessage)=>
 	{
 		if (err || errMessage)

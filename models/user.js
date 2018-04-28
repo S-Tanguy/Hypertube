@@ -83,14 +83,13 @@ module.exports =
 				torrentSearch.getMagnet(torrents[0])
 				.then(magnet =>
 				{
-					// console.log('///////13')
 					var engine = torrentStream(magnet, {path:'./movies'});
 					resolve(engine);
 				})
-				.catch(err => {console.log('----------');reject(err)})
+				.catch(err => reject(err))
 				
 			})
-			.catch(err => {console.log('************');reject(err)})
+			.catch(err => reject(err))
 		})
 	},
 
@@ -135,17 +134,13 @@ module.exports =
 					if (file.name.indexOf('.mp4') !== -1)
 					{
 						const fileSize  = await file.length
-						console.log(file.length + "\n")
-						console.log(file.name + "\n")
 						if (range)
 						{
-							console.log('toto');
 							const parts = await range.replace(/bytes=/, "").split("-")
 							const start = await parseInt(parts[0], 10)
 							const end = await parts[1]
 							? parseInt(parts[1], 10)
 							: fileSize-1
-							console.log(end + " ICI");
 
 							const chunksize = await (end-start)+1
 							const stream = await file.createReadStream({start, end})
@@ -159,11 +154,9 @@ module.exports =
 
 							res.writeHead(206, head)
 							stream.pipe(res)
-							console.log('toto2' + "\n");
 						}
 						else
 						{
-							console.log('flute' + "\n");
 							const head = await
 							{
 								'Content-Length': fileSize,

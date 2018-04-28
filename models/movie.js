@@ -25,78 +25,9 @@ const fetch = require('node-fetch'),
 torrentSearch.enableProvider('Torrent9');
 
 
-function subtitles_fr(url, title) {
-  return new Promise((resolve, reject) => {
-        var file =  fs.createWriteStream("./"+title+".fr.srt");
-        var request = https.get(url, function(response) {
-          response.pipe(file);
-          file.on('finish', function(){
-            convert_srtfr(title);
-          })
-        });
-        if (request)
-          resolve("./"+title+".fr.srt");
-        else
-          reject('dl_fr_fail');
-  });
-}
-
-function convert_srtfr(title)
-{
-  var path = "./"+title+".fr.srt";
-  var dest = "./"+title+".fr.vtt";
-
-  const srtData = fs.readFileSync(path);
-  srt2vtt(srtData, (err, vttData) => {
-    if (err) connsole.log("erreur conversion fr srt to vtt" + err)
-    else {
-      fs.writeFileSync(dest, vttData);
-      fs.unlink(path, (err) => {
-        if (err) console.log("erreur 2 fr srt to vtt " + err)
-       })
-      }
-})
-}
-
-
-function subtitles_en(url, title) {
-  return new Promise((resolve, reject) => {
-        var file =  fs.createWriteStream("./"+title+".en.srt");
-        var request = https.get(url, function(response)
-        {
-          response.pipe(file);
-          file.on('finish', function()
-          {
-            convert_srten(title);
-          })
-        });
-
-        if (request)
-          resolve("./"+title+".en.srt");
-        else
-          reject('dl_en_fail');
-  });
-}
-
-function convert_srten(title)
-{
-  var path = "./"+title+".en.srt";
-  var dest = "./"+title+".en.vtt";
-  const srtData = fs.readFileSync(path);
-  srt2vtt(srtData, (err, vttData) => {
-    if (err) connsole.log("erreur conversion en srt to vtt" + err)
-    else {
-      fs.writeFileSync(dest, vttData);
-      fs.unlink(path, (err) => {
-        if (err) console.log("erreur 2 en srt to vtt " + err)
-       })
-      }
-})
-}
-
 function filterParams(params)
 {
-	let exeptedFields = ['with_genres', 'sort_by', 'sort_direction', 'primary_release_date.gte', 'primary_release_date.lte', 'vote_average.gte', 'vote_average.lte', 'language', 'page', 'api_key', 'query'],
+	let exeptedFields = ['api_key', 'with_genres', 'sort_by', 'sort_direction', 'primary_release_date.gte', 'primary_release_date.lte', 'vote_average.gte', 'vote_average.lte', 'language', 'page', 'query'],
 		r = '',
 		key;
 
@@ -133,33 +64,11 @@ module.exports =
 			params['api_key'] = api_key;
 			query_url += filterParams(params)
 
-			console.log(query_url)
-
 			fetch(query_url)
 			.then(res=> resolve(res.json()))
 			.catch(err => reject(err))
 		})
 	},
-
-	// findByName: (name, userLang) =>
-	// {
-	// 	return new Promise((resolve, reject) =>
-	// 	{
-	// 		fetch(`${api_url}/search/movie?api_key=${api_key}&query=${name}&language=${userLang}`)
-	// 		.then(res=> resolve(res.json()))
-	// 		.catch(err => reject(err))
-	// 	})
-	// },
-
-	// get_description: (id, userLang) =>
-	// {
-	// 	return new Promise((resolve, reject) =>
-	// 	{
-	// 		fetch(`${api_url}/movie/${id}?api_key=${api_key}&language=${userLang}`)
-	// 		.then(res=> resolve(res.json()))
-	// 		.catch(err => reject(err))
-	// 	})
-	// },
 
 	stream: (title) =>
 	{
@@ -289,3 +198,86 @@ module.exports =
 	    });
 	}
 };
+
+
+
+function subtitles_fr(url, title){
+  return new Promise((resolve, reject) => {
+        var file =  fs.createWriteStream("./"+title+".fr.srt");
+        var request = https.get(url, function(response) {
+          response.pipe(file);
+          file.on('finish', function(){
+            convert_srtfr(title);
+          })
+        });
+        if (request)
+          resolve("./"+title+".fr.srt");
+        else
+          reject('dl_fr_fail');
+  });
+}
+
+function convert_srtfr(title)
+{
+	var path = "./"+title+".fr.srt";
+	var dest = "./"+title+".fr.vtt";
+
+	const srtData = fs.readFileSync(path);
+	srt2vtt(srtData, (err, vttData) =>
+	{
+		if (err)
+			console.log("erreur conversion fr srt to vtt" + err)
+		else
+		{
+			fs.writeFileSync(dest, vttData);
+			fs.unlink(path, (err) =>
+			{
+				if (err)
+					console.log("erreur 2 fr srt to vtt " + err)
+			})
+		}
+	})
+}
+
+
+function subtitles_en(url, title)
+{
+	return new Promise((resolve, reject) =>
+	{
+        var file =  fs.createWriteStream("./"+title+".en.srt");
+        var request = https.get(url, function(response)
+        {
+          response.pipe(file);
+          file.on('finish', function()
+          {
+            convert_srten(title);
+          })
+        });
+
+        if (request)
+          resolve("./"+title+".en.srt");
+        else
+          reject('dl_en_fail');
+	});
+}
+
+function convert_srten(title)
+{
+	var path = "./"+title+".en.srt";
+	var dest = "./"+title+".en.vtt";
+	const srtData = fs.readFileSync(path);
+
+	srt2vtt(srtData, (err, vttData) =>
+	{
+		if (err)
+			console.log("erreur conversion en srt to vtt" + err)
+		else
+		{
+			fs.writeFileSync(dest, vttData);
+			fs.unlink(path, (err) =>
+			{
+				if (err) console.log("erreur 2 en srt to vtt " + err)
+			})
+		}
+	})
+}

@@ -7,6 +7,7 @@ let bcrypt			= require('bcrypt-nodejs'),
 	Auth			= require('passport-auth0'),
 	User 			= require('../models/userSchema'),
 	movie 			= require('../models/movieSchema'),
+	userUtils		= require('../utils/userDataValidator'),	
 	request = require('request'),
 	saltRounds		= 10;
 
@@ -52,6 +53,7 @@ module.exports = function (passport)
 			if (!user)
 				return next({message: 'Incorrect login.' }, false);
 
+		console.log(password)
 			if (!user.validPassword(password))
 				return next(true, false, 'Oops! Wrong password.');
 
@@ -124,29 +126,43 @@ module.exports = function (passport)
 					return next(null, user)
 
 				let newUser,
-					photo = (profile._json ? profile._json.image.url: profile.photos ? (profile.photos[0] ? profile.photos[0].value : null) : null),
-					email = profile.emails ? profile.emails[0] ? profile.emails[0].value : null : null;
+					photo		= (profile._json ? profile._json.image.url: profile.photos ? (profile.photos[0] ? profile.photos[0].value : null) : null),
+					email		= profile.emails ? profile.emails[0] ? profile.emails[0].value : null : null,
+					given_name	= profile.name.givenName,
+					family_name	= profile.name.familyName,
+					login		= userUtils.generateLoginFromName(given_name, family_name);
+
+				if (!login)
+					return (next("login not generated", null));
+						
 
 
-				newUser	= new User(
-				{
-					given_name			: profile.name.givenName,
-					family_name			: profile.name.familyName,
-					login				: profile.login,
-					email				: email,
-					picture				: photo,
-					provider			: 'google',
-					provider_user_id	: profile.id
-				});
-
-				newUser.save((err)=>
+				User.findOne({login}, (err, user) =>
 				{
 					if (err)
-						return next(err, user);
+						return next(err, null);
+					if (user)
+						login += '42Hypertube';
 
-					return next(err, newUser);
+					newUser	= new User(
+					{
+						given_name,
+						family_name,
+						login,
+						email				: email,
+						picture				: photo,
+						provider			: 'google',
+						provider_user_id	: profile.id
+					});
+
+					newUser.save((err)=>
+					{
+						if (err)
+							return next(err, user);
+
+						return next(err, newUser);
+					})
 				})
-
 			});
 		}
 	));

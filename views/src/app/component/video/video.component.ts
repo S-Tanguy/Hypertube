@@ -14,7 +14,7 @@ export class VideoComponent implements OnInit {
   comments = [];
   newcomment = '';
   url : SafeResourceUrl;
-  movie = {};
+  movie = null;
 
   constructor(private _userService: UserService, private _movieService: MovieService, private route: ActivatedRoute, private router: Router) { }
 

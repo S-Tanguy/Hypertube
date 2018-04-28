@@ -35,7 +35,6 @@ function sendMail(params)
 
         transport.close();
 
-        console.log(resolve)
         return (resolve(response));
     });
   })
@@ -44,20 +43,20 @@ function sendMail(params)
 
 module.exports =
 {
-  reset_pass: (reset_key, params) =>
+  reset_pass: (params) =>
   {    
     return new Promise((resolve, reject)=>
     {
-      if (!reset_key)
+      if (!params || !params['reset_pass'])
         return (reject('reset key not found'));
 
-      params['html'] = params['html'] || "<b><a href='http://localhost:4200/pass_reset/"+ reset_key +"'>Link ✔</a></b>";
+      params['html'] = params['html'] || "<b><a href='http://localhost:4200/pass_reset/"+ params['reset_pass'] +"'>Link ✔</a></b>";
       params['subject'] = params['subject'] || "Matcha password reset";
       params['from'] = params['from'] || "PDG ✔ <aelharim42@gmail.com>";
 
       return sendMail(params)
       .then(res => resolve("ok"))
-      .catch(err => {reject(err); console.log("2165844864")});
+      .catch(err => reject(err));
     })
   },
 

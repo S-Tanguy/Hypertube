@@ -21,4 +21,12 @@ module.exports =
 				r[fields[i]] = data[fields[i]]
 		return (r);
 	},
+
+	generateLoginFromName: (first_name, last_name) =>
+	{
+		if (!first_name || !last_name)
+			return false;
+
+		return (first_name.slice(0, 2)+last_name.slice(0, last_name.length));
+	}
 }
