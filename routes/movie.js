@@ -50,6 +50,8 @@ router.get('/stream/:title', (req, res, next) =>
 	if (title == undefined)
 		return (res.status(401).json({sucess: false, err: "Movie not found"}));
 
+	// console.log(params)
+
 	Movie.stream(title)
 	.then(engine =>
 	{

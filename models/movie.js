@@ -89,7 +89,7 @@ module.exports =
 				.catch(err => reject(err))
 				
 			})
-			.catch(err => reject(err))
+			.catch(err => eject(err))
 		})
 	},
 

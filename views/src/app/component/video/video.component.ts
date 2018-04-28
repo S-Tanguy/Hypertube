@@ -46,7 +46,7 @@ export class VideoComponent implements OnInit {
       t = new Date(t).getFullYear();
 
       
-      title = this.movie.title + ' ' + t;
+      title = this.movie.title;
       console.log('TITLE', title)
       this.url = 'http://localhost:3000/movie/stream/' + title;
       console.log('URL ==>', this.url)
@@ -55,18 +55,11 @@ export class VideoComponent implements OnInit {
           // Get the video strea
 
       // console.log('sdsdsdds')
-      this._movieService.stream(this.url)
-      .subscribe(res =>
-      {        
+      this._movieService.stream(title);
 
-          this._movieService.subtitles({imdb_id: this.movie.imdb_id, title})
-          .subscribe(res =>
-          {
-            console.log(res)
+      this._movieService.subtitles({imdb_id: this.movie.imdb_id, title})
 
-          })
-
-      }, err => console.log())
+      this._userService.update({viewd_movies: id});
 
     })
   }

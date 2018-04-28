@@ -17,7 +17,7 @@
 	    </div>
 	    <div class="search_result" *ngIf='is_searching'>
 			<ul>
-				<li *ngFor="let video of movieList">
+				<li *ngFor="let video of movieList" [ngClass]="viewd_movies.includes(video.id) ? 'viewed' : ''">
 					<a routerLink="{{'/video/'+video.id}}" (click)="emptyInput(video)">
 						<img src="{{'https://image.tmdb.org/t/p/w342' + video.poster_path}}" >
 					</a>

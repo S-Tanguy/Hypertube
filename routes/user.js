@@ -69,12 +69,29 @@ router.post('/', (req, res, next) =>
 	User.findOne(findUser)
 	.then((user)=>
 	{
+		// console.log(user)
 		
 		data = userUtils.updatableData(req.body);
 
 		for (key in data)
+		{
 			if (data.hasOwnProperty(key))
-				user[key] = (key != 'password') ? data[key] : user.generateHash(data[key]);
+			{
+				if (key == 'password')
+					user[key] = user.generateHash(data[key]);
+				else if (key == 'viewd_movies')
+				{
+					if (!user.viewd_movies)
+						user.viewd_movies = [data[key]];
+					else if (!user.viewd_movies.includes(data[key]))
+						user.viewd_movies.push(data[key]);
+				}
+				else
+					user[key] = data[key];
+			}
+				console.log(key)
+		}
+
 
 		user.save((err)=>
 		{

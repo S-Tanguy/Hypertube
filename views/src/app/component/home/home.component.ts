@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieService } from '../../services/movie/movie.service';
+import { UserService } from '../../services/user/user.service';
 
 
 @Component({
@@ -11,10 +12,11 @@ export class HomeComponent implements OnInit {
   categories = [];
   search = { startYY : '1970', endYY: '', minNote: '', maxNote: '', with_genres: '' };
   movieList = [];
+  viewd_movies = [];
   genres = [];
 
 
-  constructor(private _movieService: MovieService) {
+  constructor(private _movieService: MovieService, private _userService: UserService) {
 
   }
 
@@ -28,6 +30,9 @@ export class HomeComponent implements OnInit {
       page : 1
       
     }
+
+    let current_user = this._userService.getCurrentUser();
+    this.viewd_movies = current_user.viewd_movies;
 
     this._movieService.find(params)
     .subscribe(res => 
