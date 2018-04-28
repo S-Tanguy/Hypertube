@@ -3,6 +3,7 @@ import { UserService } from './services/user/user.service';
 import { MovieService } from './services/movie/movie.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from "rxjs/Rx"
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -17,24 +18,39 @@ export class AppComponent
   searchValue = '';
   is_searching = false;
   movieList = [];
+  usePic;
 
-  constructor(private _userService: UserService, private _movieService: MovieService, private router: Router, private route: ActivatedRoute)
-  {}
+  constructor(private _userService: UserService, private _movieService: MovieService, private router: Router, private route: ActivatedRoute,
+    private sanitizer: DomSanitizer) {}
 
   ngOnInit()
   {
-    let current_user = this._userService.getCurrentUser();
+    if (this.is_login) {
+      let current_user = this._userService.getCurrentUser();
+      if (current_user && current_user.picture) 
+        this.usePic =  this.sanitizer.bypassSecurityTrustUrl(current_user.picture);
+    }
   }
 
   ngAfterViewInit() {
     this._userService.signedIn.subscribe(val => {
       this.is_login = val;
+
+      if (this.is_login) {
+        let current_user = this._userService.getCurrentUser();
+        console.log(current_user)
+        if (current_user && current_user.picture) 
+          this.usePic =  this.sanitizer.bypassSecurityTrustUrl(current_user.picture);
+      }
     })
   }
 
-  logout()
-  {
+  logout(){
     this._userService.logout();
+  }
+
+  sanitizePic(usePic): SafeUrl {
+      return `url(${usePic})`
   }
 
   search(name)

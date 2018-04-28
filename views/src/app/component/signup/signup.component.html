@@ -4,8 +4,10 @@
       <div [hidden]='!upload'>
           <input #fileInput (change)="uploadPicture($event)" id="file" type="file" name="file" accept="image/*">
       </div>
-      <div id='smallprofile' (click)="fileInput.click()" style="background-image: url('http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png')">
+      <div *ngIf="!user.picture" id='smallprofile' (click)="fileInput.click()" style="background-image: url('http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png')">
       </div>
+      <div *ngIf="user.picture" id='smallprofile' (click)="fileInput.click()" [style.backgroundImage]="'url('+ user.picture +')'">></div>
+      <!-- {{user.picture}} -->
       <form #signInForm='ngForm'>
           <mat-form-field class='input'>
             <input [(ngModel)]="user.email" name='email' #email='ngModel' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" matInput [placeholder]="'signup.email' | translate" required>
@@ -34,10 +36,10 @@
           </mat-form-field>
 
 
-          <button mat-raised-button class='input' style='margin-bottom: 20px; margin-top:30px;' [disabled]='!signInForm.valid' (click)="signup()" >Sign Up</button>
+          <button mat-raised-button class='input' style='margin-bottom: 20px; margin-top:30px;' [disabled]='!signInForm.valid || !user.picture' (click)="signup()" >Sign Up</button>
           <mat-divider [inset]="true"></mat-divider>
 
-          <p>Already have an account? <span class='blue'translate [routerLink]="['/']">signup.signup</span></p>
+          <p>Already have an account? <span class='blue' [routerLink]="['/']">Sign in</span></p>
       </form>
     </mat-card>
   </div>

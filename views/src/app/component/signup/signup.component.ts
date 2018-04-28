@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
 
 import { TranslateService } from '@ngx-translate/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-signup',
@@ -12,11 +13,19 @@ export class SignupComponent implements OnInit {
   upload = false;
   user = { picture: '', login: '', given_name: '', family_name: '', email: '', password: '' }
 
-  constructor(private TranslateService: TranslateService, private UserService: UserService)
+  constructor(private TranslateService: TranslateService, private UserService: UserService, private sanitizer: DomSanitizer)
   { }
 
 
   ngOnInit() {
+  }
+
+  base64Clean(base64) {
+    const marker = ';base64,';
+    const base64Index = base64.indexOf(marker) + marker.length;
+    const base64string = base64.substring(base64Index);
+    const test = 'data:image/jpeg;base64,' + base64string;
+    return (test);
   }
 
   uploadPicture(event: any) {
@@ -24,12 +33,12 @@ export class SignupComponent implements OnInit {
     const myReader: FileReader = new FileReader();
     let toclean;
     myReader.readAsDataURL(pictureFile.files.item(0));
-    // const that = this;
-    // myReader.onloadend = function(loadEvent: any) {
-    //   toclean = loadEvent.target.result;
-    //   that.user.profilepicture = that.base64Clean(toclean);
-    //   that._apiService.updateUserProfile(that.user);
-  };
+    const that = this;
+    myReader.onloadend = function(loadEvent: any) {
+      toclean = loadEvent.target.result;
+      that.user.picture = that.base64Clean(toclean);
+    };
+  }
 
 
   signup()
