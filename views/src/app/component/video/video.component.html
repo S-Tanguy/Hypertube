@@ -13,15 +13,15 @@
 
       <mat-divider ></mat-divider>
       <ul id='movieInfo'>
-          <li *ngIf='movie.title'>
+          <li *ngIf='movie && movie.title'>
               <div>Title</div><div>{{movie.title}}</div>
           </li>
 
-          <li *ngIf='movie.release_date'>
+          <li *ngIf='movie && movie.release_date'>
               <div>release_date</div><div>{{movie.release_date}}</div>
           </li>
 
-          <li *ngIf='movie.genres'>
+          <li *ngIf='movie && movie.genres'>
               <div>genres</div>
               <div>
                 <a *ngFor="let genre of movie.genres" routerLink="{{'/category/'+genre.id}}">
@@ -30,11 +30,11 @@
               </div>
           </li>
 
-          <li *ngIf='movie.overview'>
+          <li *ngIf='movie && movie.overview'>
               <div>overview</div><div>{{movie.overview}}</div>
           </li>
 
-          <li *ngIf='movie.poster_path'>
+          <li *ngIf='movie && movie.poster_path'>
             <img src="{{'https://image.tmdb.org/t/p/w342' + movie.poster_path}}" >
           </li>
       </ul>

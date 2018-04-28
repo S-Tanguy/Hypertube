@@ -31,6 +31,7 @@ export class VideoComponent implements OnInit {
     this._movieService.find({query_type: 'single_video', id})
     .subscribe(res => {
       res = res.json();
+      console.log(res)
 
       if (!res || !res['data'])
         return;
@@ -39,14 +40,16 @@ export class VideoComponent implements OnInit {
       let t = this.movie.release_date,
         title;
 
-      if (!t)
+      if (!t || !this.movie)
         return;
 
       t = new Date(t).getFullYear();
 
+      
       title = this.movie.title + ' ' + t;
+      console.log('TITLE', title)
       this.url = 'http://localhost:3000/movie/stream/' + title;
-
+      console.log('URL ==>', this.url)
 
 
           // Get the video strea
