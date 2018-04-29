@@ -55,7 +55,7 @@ export class VideoComponent implements OnInit
       title = this.movie.title + ' ' + t;
       this.url = 'http://localhost:3000/movie/stream/' + title;
 
-      
+
           // Get the video strea
 
       // console.log('sdsdsdds')
@@ -73,10 +73,15 @@ export class VideoComponent implements OnInit
 
   postComment()
   {
-    this._movieService.postComment({ movie_id: this.movie.id, post: this.newcomment })
+    let newcomment = this.newcomment;
+
+    if (!newcomment || newcomment.length > 255)
+      return;
+
+    this._movieService.postComment({ movie_id: this.movie.id, post: newcomment })
     .subscribe(res=>
     {
-      this.comments.push({user: {login: this.current_user.login, picture: this.current_user.picture}, post: this.newcomment})
+      this.comments.push({user: {login: this.current_user.login, picture: this.current_user.picture}, post: newcomment})
      this.newcomment = '';
     })
   }
