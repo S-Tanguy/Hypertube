@@ -1,9 +1,10 @@
 <div class='background'>
     <div class='body'>
-        <video *ngIf="url" id="videoPlayer" controls autoplay crossorigin="use-credentials">
+        <video *ngIf="url" id="videoPlayer" controls autoplay>
           <!-- <source src="http://localhost:3000/movie/stream/Zootopia%202016" type="video/mp4"> -->
           <source [src]="url" type="video/mp4">
-          <track kind="subtitles" src="http://localhost:3000/subtitles/Black_Panther_2018.en.vtt" srclang="en" default>
+          <track kind="subtitles" src="{{subtitle_en}}" srclang="en">
+          <track kind="subtitles" src="{{subtitle_fr}}" srclang="fr">
         </video>
 
       <mat-divider ></mat-divider>
