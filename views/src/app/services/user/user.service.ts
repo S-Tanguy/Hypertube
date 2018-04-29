@@ -44,7 +44,7 @@ export class UserService {
 
     // console.log(user)
     return this.http.post('http://localhost:3000/auth/signin', user, { headers: headers })
-      .map(res =>
+      .subscribe(res =>
       {
         let r = res.json();
 
