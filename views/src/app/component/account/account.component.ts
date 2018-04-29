@@ -16,12 +16,10 @@ export class AccountComponent implements OnInit {
   is_local_strategy = false;
   upload = false;
 
-  constructor(private UserService: UserService)
-  { }
+  constructor(private _userService: UserService) { }
 
-  ngOnInit()
-  {
-    let curentUser = this.UserService.getCurrentUser();
+  ngOnInit() {
+    const curentUser = this._userService.getCurrentUser();
 
     this.user = {
       picture: curentUser.picture,
@@ -35,39 +33,36 @@ export class AccountComponent implements OnInit {
 
     this.is_local_strategy = curentUser.provider === 'local';
 
-    this.UserService.langUpdated.subscribe(bool => {
+    this._userService.langUpdated.subscribe(bool => {
       if (bool === true) {
         location.reload();
       }
-    })
+    });
   }
 
-  changeLang(e)
-  {
-    let { lang } = this.user;
+  changeLang(e) {
+    const { lang } = this.user;
 
-    this.UserService.update({lang});
+    this._userService.update({lang});
     localStorage.setItem('lang', lang);
   }
 
-  passwordMatch()
-  {
-    if (this.password !== this.repeatpwd)
+  passwordMatch() {
+    if (this.password !== this.repeatpwd) {
       this.noMatch = true;
-    else
+    } else {
       this.noMatch = false;
+    }
   }
 
-  updateProfile()
-  {
-    let {email, login, given_name, family_name} = this.user;
-    this.UserService.update({email, login, given_name, family_name})
+  updateProfile() {
+    const {email, login, given_name, family_name} = this.user;
+    this._userService.update({email, login, given_name, family_name});
   }
 
-  changePassword(e)
-  {
-    let {email, login, password} = this.user;
-    this.UserService.update({email, login, password})
+  changePassword(e) {
+    const {email, login, password} = this.user;
+    this._userService.update({email, login, password});
   }
 
   base64Clean(base64) {
@@ -87,8 +82,8 @@ export class AccountComponent implements OnInit {
     myReader.onloadend = function(loadEvent: any) {
       toclean = loadEvent.target.result;
       that.user.picture = that.base64Clean(toclean);
-      let {login, picture} = that.user;
-      that.UserService.update({login, picture})
+      const {login, picture} = that.user;
+      that._userService.update({login, picture});
     };
   }
 

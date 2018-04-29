@@ -1,0 +1,26 @@
+<div class='background'>
+    <div class='header'>
+      <img class='logo' [routerLink]="['/']" src='assets/images/logo.png'>
+    </div>
+    <mat-card class='card'>
+      <mat-card-title>{{'account.pwdchange' | translate}} </mat-card-title>
+      <form #changePwdForm='ngForm'>
+
+          <mat-form-field class='input'>
+              <input [(ngModel)]='password' name='password' type='password' matInput #pwd='ngModel' [placeholder]="'signin.password' | translate" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" required>
+              <mat-error *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)" translate>
+                Password must be at least 6 characters long and must contain at least a number and a letter
+              </mat-error>
+            </mat-form-field> <br>
+
+            <mat-form-field class='input'>
+              <input [(ngModel)]="repeatpwd" name='password' type='password' matInput #repeat='ngModel' [placeholder]="'signin.repeatpwd' | translate" required>
+              <mat-hint class='mat-error' *ngIf="noMatch && (repeat.dirty || repeat.touched)" translate>
+
+              </mat-hint>
+            </mat-form-field> <br>
+
+          <button mat-raised-button class='input' (click)='changePassword()' style='margin-bottom: 20px; margin-top:30px;' [disabled]='!changePwdForm.valid'>{{'account.confirm' | translate }}</button>
+      </form>
+    </mat-card>
+</div>

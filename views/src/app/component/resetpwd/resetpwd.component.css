@@ -1,0 +1,76 @@
+@media (max-width: 740px) {
+  .logo {
+      height: 30px;
+      width: auto;
+  }
+}
+
+@media (min-width: 741px) {
+  .card {
+      width: 380px;
+      padding: 40px;
+      margin-left: auto;
+      margin-right: auto;
+  }
+
+  .background {
+      background: url(https://assets.nflxext.com/ffe/siteui/acquisition/login/login-the-crown_2-1500x1000.jpg);
+      background-size: cover;
+      min-width: 100%;
+      min-height: 100%;
+  }
+
+  .logo {
+      height: 40px;
+      width: auto;
+  }
+}
+
+.logo {
+  cursor: pointer;
+}
+
+*:focus {
+  outline: 0;
+}
+
+.header {
+  margin-left: 20px;
+  padding-top: 15px;
+  margin-bottom: 20px;
+}
+
+.input {
+  width: 100%;
+}
+
+button {
+  color: white;
+  background-color: #e50914;
+  padding: 10px;
+}
+
+.forgot {
+  margin-top: 43px;
+  margin-bottom: 19px;
+  cursor: pointer;
+  color: #0080ff;
+  font-size: 14px;
+  /* font */
+}
+
+.blue {
+  cursor: pointer;
+  color: #0080ff;
+}
+
+.mini {
+  height: 24px;
+  width: 24px;
+  margin-right: 10px;
+}
+
+p {
+  margin: 0;
+  margin-top: 5px;
+}
