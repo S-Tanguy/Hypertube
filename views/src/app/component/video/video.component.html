@@ -37,7 +37,7 @@
       </ul>
       <div class='comments'>
           <mat-form-field class='input'>
-            <textarea [(ngModel)]="newcomment" name='newcomment' matInput [placeholder]="'stream.comment' | translate"> </textarea>
+            <textarea [(ngModel)]="newcomment" name='newcomment' matInput maxlength="255" [placeholder]="'stream.comment' | translate"> </textarea>
           </mat-form-field>
           <button mat-raised-button (click)='postComment()'>{{'stream.post' | translate}}</button>
           <br>
