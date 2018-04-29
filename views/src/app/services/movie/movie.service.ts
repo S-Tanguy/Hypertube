@@ -39,6 +39,7 @@ export class MovieService
     headers.append('Authorization', "Bearer " + token);
 
     return this.http.get(`http://localhost:3000/movie/stream/${name}`, { headers: headers})
+    .map(res=> res.json())    
   }
 
   getComment(params)
@@ -48,6 +49,7 @@ export class MovieService
 
     headers.append('Authorization', "Bearer " + token);
     return this.http.get('http://localhost:3000/movie/comment', { headers: headers, params })
+    .map(res=> res.json())
   }
 
   postComment(data)

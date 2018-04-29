@@ -33,6 +33,9 @@
     "stream": {
       "comment": "Publier un commentaire...",
       "genre": "Genre",
+      "sort": "Trier",
+      "seed": "Seed",
+      "vote_average": "Nombre de vote",
       "between": "Entre",
       "and": "et",
       "startYY": "Année de début",

@@ -32,7 +32,8 @@ import { VideoComponent } from './component/video/video.component';
 
 import { AuthGuardGuard } from './services/auth/auth-guard.guard';
 import { NotAuthGuardGuard } from './services/auth/notAuth-guard.guard';
-import { CategoryComponent } from './category/category.component';
+
+
 
 const appRoutes: Routes = [
   { path: '', component: SigninComponent, canActivate: [NotAuthGuardGuard] },
@@ -43,8 +44,8 @@ const appRoutes: Routes = [
   { path: 'profile', component: AccountComponent, canActivate: [AuthGuardGuard] },
   { path: 'video/:id', component: VideoComponent, canActivate: [AuthGuardGuard] },
   { path: 'profile/:username', component: ProfileComponent, canActivate: [AuthGuardGuard] },
-  { path: 'category/:catname', component: CategoryComponent, canActivate: [AuthGuardGuard] },
-  { path: ':token', component: SigninComponent, canActivate: [NotAuthGuardGuard] }
+  { path: ':token', component: SigninComponent, canActivate: [NotAuthGuardGuard] },
+  {path: '**', redirectTo: ''}
 ];
 
 export function createTranslateLoader(http: HttpClient) {
@@ -61,7 +62,6 @@ export function createTranslateLoader(http: HttpClient) {
     AccountComponent,
     ProfileComponent,
     VideoComponent,
-    CategoryComponent
   ],
   imports: [
     BrowserModule,

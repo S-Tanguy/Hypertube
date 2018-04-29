@@ -5,7 +5,6 @@
 	    <div style='float:right'>    	
 		    <input  [hidden]='!is_login' type="text" name="search" [(ngModel)]="searchValue" (input)="search($event.target.value)" >
 
-				<!-- <div [hidden]='!is_login' id='smallprofile' [matMenuTriggerFor]="appMenu" style="background-image: url('http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png')"></div> -->
 				<div id='smallprofile'>
 					<img [hidden]="!is_login && usePic == ''" class='smallPic' [matMenuTriggerFor]="appMenu" [src]="usePic">
 					<img [hidden]='!is_login' class='smallPic' [matMenuTriggerFor]="appMenu" src="http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png">

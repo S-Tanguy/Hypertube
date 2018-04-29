@@ -57,7 +57,7 @@ router.get('/stream/:title', (req, res, next) =>
 	{
 		Movie.download(engine, res);
 	})
-	.catch(err => res.status(401).json({sucess: false, message: 'sdsd'}))
+	.catch(err => res.status(401).json({sucess: false, err}))
 })
 
 	

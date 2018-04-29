@@ -1,4 +1,4 @@
-  <div class='background'>
+  <div class='background' detect-scroll (onScroll)="handleScroll($event)">
     <mat-card>
       <h3 style='margin-bottom: 0' translate>stream.advanced</h3>
       <div class='long-row'>
@@ -37,13 +37,17 @@
                 </button>
               </mat-form-field>
           </div>
+           <mat-select [placeholder]="'stream.sort' | translate" name='sort_by' [(ngModel)]="search.sort_by">
+            <mat-option value="seed">{{'seed' | translate}}</mat-option>
+            <mat-option value="vote_average.asc">{{'vote_average' | translate}}</mat-option>
+          </mat-select>
       </div>
         <button mat-raised-button (click)='advancedSearch()'>{{'stream.search' | translate}}</button>
     </mat-card>
     <div class='rows search_result'>
       <ul>
         <li *ngFor="let video of movieList" [ngClass]="viewd_movies.includes(video.id) ? 'viewed' : ''">          
-          <a routerLink="{{'/video/'+video.id}}" (click)="emptyInput(video)">
+          <a routerLink="{{'/video/'+video.id}}">
             <img src="{{'https://image.tmdb.org/t/p/w342' + video.poster_path}}" >
           </a>
         </li>

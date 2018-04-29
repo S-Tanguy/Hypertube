@@ -3,6 +3,8 @@ import { MovieService } from '../../services/movie/movie.service';
 import { UserService } from '../../services/user/user.service';
 
 
+
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -10,15 +12,14 @@ import { UserService } from '../../services/user/user.service';
 })
 export class HomeComponent implements OnInit {
   categories = [];
-  search = { startYY : '1970', endYY: '', minNote: '', maxNote: '', with_genres: '' };
+  search = { startYY : '1970', endYY: '', minNote: '', maxNote: '', with_genres: '', sort_by: '', vote_average: '' };
   movieList = [];
   viewd_movies = [];
   genres = [];
 
 
-  constructor(private _movieService: MovieService, private _userService: UserService) {
-
-  }
+  constructor(private _movieService: MovieService, private _userService: UserService)
+  { }
 
   ngOnInit()
   {
@@ -65,7 +66,10 @@ export class HomeComponent implements OnInit {
       params['with_genres'] = this.search.with_genres;
     if (this.search.startYY)
       params['primary_release_date.gte'] = this.search.startYY;
+    if (this.search.sort_by)
+      params['sort_by'] = this.search.sort_by;
 
+    console.log(this.search)
       // search = { startYY, endYY, minNote, maxNote, with_genres} = this.search;
 
     params['query_type'] = 'discover';
@@ -98,31 +102,32 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  onlyNumbers(e: KeyboardEvent) {
+  onlyNumbers(e: KeyboardEvent)
+  {
     const regexStr = '^[0-9]*$';
-        if ([46, 8, 9, 27, 13, 110, 190, 171].indexOf(e.keyCode) !== -1 ||
-            // Allow: Ctrl+A
-            (e.keyCode === 65 && e.ctrlKey === true) ||
-            // Allow: Ctrl+C
-            (e.keyCode === 67 && e.ctrlKey === true) ||
-            // Allow: Ctrl+V
-            (e.keyCode === 86 && e.ctrlKey === true) ||
-            // Allow: Ctrl+X
-            (e.keyCode === 88 && e.ctrlKey === true) ||
-            // Allow: home, end, left, right
-            (e.keyCode >= 35 && e.keyCode <= 39) ||
-            // Allow plus button
-            (e.keyCode === 107) || (e.keyCode === 187)) {
-            // let it happen, don't do anything
-            return;
-        }
-        const /** @type {?} */ ch = String.fromCharCode(e.keyCode);
-        const /** @type {?} */ regEx = new RegExp(regexStr);
-        if (regEx.test(ch)) {
-            return;
-        } else if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-            e.preventDefault();
-        }
-}
+
+    if ([46, 8, 9, 27, 13, 110, 190, 171].indexOf(e.keyCode) !== -1 ||
+        // Allow: Ctrl+A
+        (e.keyCode === 65 && e.ctrlKey === true) ||
+        // Allow: Ctrl+C
+        (e.keyCode === 67 && e.ctrlKey === true) ||
+        // Allow: Ctrl+V
+        (e.keyCode === 86 && e.ctrlKey === true) ||
+        // Allow: Ctrl+X
+        (e.keyCode === 88 && e.ctrlKey === true) ||
+        // Allow: home, end, left, right
+        (e.keyCode >= 35 && e.keyCode <= 39) ||
+        // Allow plus button
+        (e.keyCode === 107) || (e.keyCode === 187))
+        return;
+
+    const /** @type {?} */ ch = String.fromCharCode(e.keyCode);
+    const /** @type {?} */ regEx = new RegExp(regexStr);
+    if (regEx.test(ch)) {
+        return;
+    } else if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+        e.preventDefault();
+    }
+  }
 
 }

@@ -19,7 +19,8 @@
           <li *ngIf='movie && movie.genres'>
               <div>genres</div>
               <div>
-                <a *ngFor="let genre of movie.genres" routerLink="{{'/category/'+genre.id}}">
+                <!-- <a *ngFor="let genre of movie.genres" routerLink="{{'/category/'+genre.id}}"> -->
+                <a *ngFor="let genre of movie.genres" routerLink="{{'/video/'+video_id}}">
                   {{genre.name}}
                 </a>
               </div>

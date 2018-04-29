@@ -28,7 +28,7 @@ torrentSearch.enableProvider('Torrent9');
 
 function filterParams(params)
 {
-	let exeptedFields = ['api_key', 'with_genres', 'sort_by', 'sort_direction', 'primary_release_date.gte', 'primary_release_date.lte', 'vote_average.gte', 'vote_average.lte', 'language', 'page', 'query'],
+	let exeptedFields = ['api_key', 'with_genres', 'sort_by', 'vote_average.asc', 'sort_direction', 'primary_release_date.gte', 'primary_release_date.lte', 'vote_average.gte', 'vote_average.lte', 'language', 'page', 'query'],
 		r = '',
 		key;
 
@@ -79,7 +79,7 @@ module.exports =
 			.then(torrents =>
 			{
 				if (!torrents || !torrents[0])
-					reject("torrent not found")
+					return reject("Torrent not found")
 
 				torrentSearch.getMagnet(torrents[0])
 				.then(magnet =>
@@ -90,7 +90,7 @@ module.exports =
 				.catch(err => reject(err))
 				
 			})
-			.catch(err => eject(err))
+			.catch(err => {console.log(err);reject(err)})
 		})
 	},
 

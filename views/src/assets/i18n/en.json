@@ -40,6 +40,9 @@
     "stream": {
       "comment": "Write a comment...",
       "genre": "Genre",
+      "sort": "Sort",
+      "seed": "Seed",
+      "vote_average": "Vote average",
       "between": "Between",
       "and": "and",
       "startYY": "Start Year",

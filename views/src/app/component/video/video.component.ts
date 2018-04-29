@@ -10,11 +10,13 @@ import { SafeResourceUrl } from '@angular/platform-browser';
   templateUrl: './video.component.html',
   styleUrls: ['./video.component.css']
 })
-export class VideoComponent implements OnInit {
+export class VideoComponent implements OnInit
+{
   comments = [];
   newcomment = '';
   url : SafeResourceUrl;
   movie = null;
+  video_id = null;
   current_user = null;
 
   constructor(private _userService: UserService, private _movieService: MovieService, private route: ActivatedRoute, private router: Router) { }
@@ -28,13 +30,14 @@ export class VideoComponent implements OnInit {
     if (id == undefined)
       this.router.navigateByUrl('/home');
 
+    this.video_id = id;
 
           // Get the video info
 
     this._movieService.find({query_type: 'single_video', id})
-    .subscribe(res => {
+    .subscribe(res =>
+    {
       res = res.json();
-      console.log(res)
 
       if (!res || !res['data'])
         return;
@@ -52,7 +55,7 @@ export class VideoComponent implements OnInit {
       title = this.movie.title + ' ' + t;
       this.url = 'http://localhost:3000/movie/stream/' + title;
 
-
+      
           // Get the video strea
 
       // console.log('sdsdsdds')
@@ -62,15 +65,8 @@ export class VideoComponent implements OnInit {
 
       this._userService.update({viewd_movies: id});
 
-      console.log(id)
       this._movieService.getComment({movie_id: id})
-      .subscribe(res =>
-      {
-        res = res.json();
-
-        if (res.data)
-          this.comments = res.data;
-      })
+      .subscribe(res => this.comments = res['data'])
 
     })
   }
@@ -80,7 +76,7 @@ export class VideoComponent implements OnInit {
     this._movieService.postComment({ movie_id: this.movie.id, post: this.newcomment })
     .subscribe(res=>
     {
-      this.comments.push({user: {login: this.current_user.login, picture: this.current_user.picture}, comment: this.newcomment})
+      this.comments.push({user: {login: this.current_user.login, picture: this.current_user.picture}, post: this.newcomment})
      this.newcomment = '';
     })
   }
