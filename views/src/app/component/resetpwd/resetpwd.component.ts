@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
+
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -11,12 +12,15 @@ export class ResetpwdComponent implements OnInit {
   noMatch = true;
   password = '';
   repeatpwd = '';
-  id;
+  pass_reset = '';
 
-  constructor(private _userService: UserService, private route: ActivatedRoute) { }
+  constructor(private _userService: UserService, private route: ActivatedRoute, private router: Router)
+  { }
 
   ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id');
+    this.pass_reset = this.route.snapshot.paramMap.get('pass_reset');
+
+    console.log(this.pass_reset)
   }
 
   passwordMatch() {
@@ -27,9 +31,12 @@ export class ResetpwdComponent implements OnInit {
     }
   }
 
-  changePassword(e) {
+  changePassword() {
     // let {email, login, password} = this.user;
-    this._userService.update({_id: this.id, password: this.password});
+    console.log('sd')
+    this._userService.update_pass_reset({pass_reset: this.pass_reset, password: this.password})
+    .subscribe(res => console.log(res));
+    
   }
 
 }

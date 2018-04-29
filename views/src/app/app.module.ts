@@ -26,7 +26,6 @@ import { SigninComponent } from './component/signin/signin.component';
 import { SignupComponent } from './component/signup/signup.component';
 import { ForgotpwdComponent } from './component/forgotpwd/forgotpwd.component';
 import { HomeComponent } from './component/home/home.component';
-import { AccountComponent } from './component/account/account.component';
 import { ProfileComponent } from './component/profile/profile.component';
 import { VideoComponent } from './component/video/video.component';
 
@@ -39,15 +38,13 @@ import { ResetpwdComponent } from './component/resetpwd/resetpwd.component';
 const appRoutes: Routes = [
   { path: '', component: SigninComponent, canActivate: [NotAuthGuardGuard] },
   { path: 'forgotPassword', component: ForgotpwdComponent, canActivate: [NotAuthGuardGuard] },
-  { path: 'reset/:id', component: ResetpwdComponent, canActivate: [NotAuthGuardGuard] },
+  { path: 'pass_reset/:pass_reset', component: ResetpwdComponent, canActivate: [NotAuthGuardGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardGuard] },
   { path: 'signup', component: SignupComponent, canActivate: [NotAuthGuardGuard] },
-  // { path: 'account', component: AccountComponent, canActivate: [AuthGuardGuard] },
-  { path: 'profile', component: AccountComponent, canActivate: [AuthGuardGuard] },
   { path: 'video/:id', component: VideoComponent, canActivate: [AuthGuardGuard] },
   { path: 'profile/:username', component: ProfileComponent, canActivate: [AuthGuardGuard] },
   { path: ':token', component: SigninComponent, canActivate: [NotAuthGuardGuard] },
-  {path: '**', redirectTo: ''}
+  // {path: '**', redirectTo: ''}
 ];
 
 export function createTranslateLoader(http: HttpClient) {
@@ -61,7 +58,6 @@ export function createTranslateLoader(http: HttpClient) {
     SignupComponent,
     ForgotpwdComponent,
     HomeComponent,
-    AccountComponent,
     ProfileComponent,
     VideoComponent,
     ResetpwdComponent,

@@ -166,4 +166,38 @@ router.post('/reset_pass', (req, res) =>
 	})
 })
 
+
+router.put('/reset_pass', (req, res) =>
+{
+	let {reset_pass, password} = req.body;
+
+
+	User.findOne({reset_pass, provider: 'local'}, (err, user)=>
+	{
+		if (err)
+			return (res.status(401).json({sucess: false, err}));
+		if (!user)
+			return (res.status(401).json({sucess: false, err: 'User no found'}));
+
+		user.password = user.generateHash(password);
+		user.reset_pass = null;
+		
+		user.save((err)=>
+		{
+			if (err)
+				res.status(401).json({sucess: false, err });
+
+			User.findOne({email: user.email})
+			.then((newUser)=>
+			{
+				newUser = userUtils.tokenazableUser(newUser);
+				let token = jwt.generateToken(newUser);
+
+				res.json({sucess: true, message: 'User updated', token})
+			})
+			.catch((err)=>(res.status(401).json({sucess: false, err })))
+		})
+	})
+})
+
 module.exports = router;

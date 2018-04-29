@@ -103,7 +103,18 @@ export class UserService {
         let r = res.json();
         return r
       })
+  }
 
+  update_pass_reset(params)
+  {
+    const token = localStorage.getItem('token');
+
+    const headers = new Headers();
+    headers.append('Authorization', "Bearer " + token);
+
+    console.log('ds')
+    return this.http.put('http://localhost:3000/user/reset_pass', {params})
+      .map(res => res.json())
   }
 
   strategySignin(token)
@@ -147,12 +158,12 @@ export class UserService {
     return tokenNotExpired('token')
   }
 
-  logout() {
-    // console.log('ok')
+  logout()
+  {
     sessionStorage.clear();
     localStorage.clear();
     this.signedIn.emit(false);
     this.router.navigate(['/'])
   }
-
 }
+    // console
