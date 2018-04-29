@@ -1,6 +1,6 @@
 'use strict'
 
-const jwt 		= require('../Middlewares/jwt.js'),
+const jwt 		= require('../middlewares/jwt'),
 	Movie		= require('../models/movie'),
 	router		= require('express').Router();
 

@@ -102,7 +102,8 @@ export class AccountComponent implements OnInit {
       toclean = loadEvent.target.result;
       that.user.picture = that.base64Clean(toclean);
       const {login, picture} = that.user;
-      that._userService.update({login, picture});
+      that._userService.update({login, picture})
+      .subscribe();
     };
   }
 

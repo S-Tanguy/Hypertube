@@ -28,6 +28,7 @@ import { ForgotpwdComponent } from './component/forgotpwd/forgotpwd.component';
 import { HomeComponent } from './component/home/home.component';
 import { ProfileComponent } from './component/profile/profile.component';
 import { VideoComponent } from './component/video/video.component';
+import { AccountComponent } from './component/account/account.component';
 
 import { AuthGuardGuard } from './services/auth/auth-guard.guard';
 import { NotAuthGuardGuard } from './services/auth/notAuth-guard.guard';
@@ -40,6 +41,7 @@ const appRoutes: Routes = [
   { path: 'forgotPassword', component: ForgotpwdComponent, canActivate: [NotAuthGuardGuard] },
   { path: 'pass_reset/:pass_reset', component: ResetpwdComponent, canActivate: [NotAuthGuardGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardGuard] },
+  { path: 'profile', component: AccountComponent, canActivate: [AuthGuardGuard] },
   { path: 'signup', component: SignupComponent, canActivate: [NotAuthGuardGuard] },
   { path: 'video/:id', component: VideoComponent, canActivate: [AuthGuardGuard] },
   { path: 'profile/:username', component: ProfileComponent, canActivate: [AuthGuardGuard] },
@@ -61,6 +63,7 @@ export function createTranslateLoader(http: HttpClient) {
     ProfileComponent,
     VideoComponent,
     ResetpwdComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,

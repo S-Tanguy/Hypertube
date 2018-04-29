@@ -69,7 +69,7 @@ router.post('/', (req, res, next) =>
 	User.findOne(findUser)
 	.then((user)=>
 	{
-		// console.log(user)
+		console.log(user)
 		
 		data = userUtils.updatableData(req.body);
 
