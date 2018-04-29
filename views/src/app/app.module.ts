@@ -19,7 +19,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 import { SigninComponent } from './component/signin/signin.component';
@@ -87,7 +87,8 @@ export function createTranslateLoader(http: HttpClient) {
     MatDividerModule,
     MatMenuModule,
     MatSelectModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule
   ],
   providers: [UserService, MovieService, AuthGuardGuard, NotAuthGuardGuard],
   bootstrap: [AppComponent]

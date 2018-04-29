@@ -20,7 +20,7 @@
       <div class='section'>
           <h2 class='mini-header'> {{'account.personal' | translate}} </h2>
           <form #editForm='ngForm'>
-              <mat-form-field class='input'>
+              <mat-form-field class='input' style='padding-top:25px;'>
                 <input [(ngModel)]="user.email" name='email' #email='ngModel' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" matInput placeholder="E-mail" required>
                 <mat-error *ngIf="email.invalid && (email.dirty || email.touched)" translate>
                   Please enter a valid e-mail
@@ -49,8 +49,8 @@
     
               <mat-form-field class='input'>
                   <input [(ngModel)]="password" name='password' type='password' matInput #pwd='ngModel' [placeholder]="'signin.password' | translate" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" required>
-                  <mat-error *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)" translate>
-                    Password must be at least 6 characters long and must contain at least a number and a letter
+                  <mat-error *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)">
+                    {{'account.passwordCondition' | translate}}
                   </mat-error>
                 </mat-form-field> <br>
     

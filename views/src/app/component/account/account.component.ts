@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 
 
 
@@ -16,7 +18,7 @@ export class AccountComponent implements OnInit {
   is_local_strategy = false;
   upload = false;
 
-  constructor(private _userService: UserService) { }
+  constructor(private _userService: UserService,public snackBar: MatSnackBar, private translate: TranslateService) { }
 
   ngOnInit() {
     const curentUser = this._userService.getCurrentUser();
@@ -57,12 +59,29 @@ export class AccountComponent implements OnInit {
 
   updateProfile() {
     const {email, login, given_name, family_name} = this.user;
-    this._userService.update({email, login, given_name, family_name});
+    this._userService.update({email, login, given_name, family_name}).subscribe(result => {
+      if (result.sucess) {
+        this.translate.get('account.updated').subscribe((message: string) => {
+          this.snackBar.open(message, '', {
+            duration: 2000,
+          });
+        });
+      }
+    })
   }
 
   changePassword(e) {
-    const {email, login, password} = this.user;
-    this._userService.update({email, login, password});
+    const {email, login} = this.user;
+    this._userService.update({email, login, password: this.password}).subscribe(result =>{
+      
+      if (result.sucess) {
+        this.translate.get('account.updated').subscribe((message: string) => {
+          this.snackBar.open(message, '', {
+            duration: 2000,
+          });
+        });
+      }
+    })
   }
 
   base64Clean(base64) {

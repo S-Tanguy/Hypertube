@@ -47,7 +47,6 @@ export class AppComponent
         this.usePic = '';
       }
 
-      console.log(this.usePic)
     })
   }
 

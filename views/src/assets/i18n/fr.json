@@ -27,7 +27,9 @@
         "pwdchange": "Modifier mon mot de passe",
         "confirm": "Valider",
         "profilePicture" : "Photo de profil",
-        "uploadPic": "Modifier ma photo"
+        "uploadPic": "Modifier ma photo",
+        "passwordCondition": "Le mot de passe doit contenir au moins 6 characteres et avoir une combinaison de chiffres et de lettres",
+        "updated": "Vos informations personelles ont bien été mis à jours"
     },
 
     "stream": {

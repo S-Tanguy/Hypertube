@@ -34,7 +34,9 @@
         "pwdchange": "Change Password",
         "confirm": "Confirm",
         "uploadPic": "Upload new picture",
-        "profilePicture": "Profile Picture"
+        "profilePicture": "Profile Picture",
+        "passwordCondition": "Password must be at least 6 characters long and must contain at least a number and a letter",
+        "updated": "Your information has succesfully been updated"
     },
 
     "stream": {

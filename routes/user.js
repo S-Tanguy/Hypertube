@@ -77,8 +77,9 @@ router.post('/', (req, res, next) =>
 		{
 			if (data.hasOwnProperty(key))
 			{
-				if (key == 'password')
+				if (key == 'password') {
 					user[key] = user.generateHash(data[key]);
+				}
 				else if (key == 'viewd_movies')
 				{
 					if (!user.viewd_movies)
@@ -91,7 +92,6 @@ router.post('/', (req, res, next) =>
 			}
 				console.log(key)
 		}
-
 
 		user.save((err)=>
 		{
