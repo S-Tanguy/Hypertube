@@ -23,12 +23,7 @@ export class UserService {
       {
         let r = res.json();
 
-        if (r.token)
-        {
-            localStorage.setItem('token', r.token);
-            this.setCurrentUser(r.token);
-            this.router.navigate(['/home']);
-        }
+        this.redirectIfLog(r);
 
         return r
       })
