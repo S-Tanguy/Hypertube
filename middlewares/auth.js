@@ -55,7 +55,10 @@ module.exports = function (passport)
 
 		console.log(password)
 			if (!user.validPassword(password))
-				return next(true, false, 'Oops! Wrong password.');
+			{
+
+				return next('Oops! Wrong password.', false);
+			}
 
 			return next(null, user);
 		});

@@ -19,7 +19,8 @@ export class ForgotpwdComponent implements OnInit {
   sendMail()
   {
   	console.log(this.email)
-  	this.UserService.reset_pass(this.email);
+  	this.UserService.reset_pass(this.email)
+    .subscribe(res=>console.log(res))
   }
 
 }

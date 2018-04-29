@@ -18,6 +18,8 @@ export class VideoComponent implements OnInit
   movie = null;
   video_id = null;
   current_user = null;
+  subtitle_en = null;
+  subtitle_fr = null;
 
   constructor(private _userService: UserService, private _movieService: MovieService, private route: ActivatedRoute, private router: Router) { }
 
@@ -62,6 +64,13 @@ export class VideoComponent implements OnInit
       this._movieService.stream(title);
 
       this._movieService.subtitles({imdb_id: this.movie.imdb_id, title})
+      .subscribe(subtitles =>
+      {
+        let tmp = title.trim().split(' ').join('_');
+
+        this.subtitle_en =  'http://localhost:3000/subtitles/' + tmp + '.en.vtt';
+        this.subtitle_fr =  'http://localhost:3000/subtitles/' + tmp + '.en.vtt';
+      })
 
       this._userService.update({viewd_movies: id});
 

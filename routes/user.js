@@ -172,6 +172,9 @@ router.put('/reset_pass', (req, res) =>
 	let {reset_pass, password} = req.body;
 
 
+	if (!reset_pass)
+		return (res.status(401).json({sucess: false, err: "Reset pass not provided"}));
+
 	User.findOne({reset_pass, provider: 'local'}, (err, user)=>
 	{
 		if (err)
@@ -181,7 +184,7 @@ router.put('/reset_pass', (req, res) =>
 
 		user.password = user.generateHash(password);
 		user.reset_pass = null;
-		
+
 		user.save((err)=>
 		{
 			if (err)

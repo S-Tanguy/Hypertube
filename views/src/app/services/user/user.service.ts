@@ -48,11 +48,7 @@ export class UserService {
       {
         let r = res.json();
 
-        if (r.token)
-            localStorage.setItem('token', r.token);
-          this.setCurrentUser(r.token);
-        this.signedIn.emit(true)
-        this.router.navigate(['/home']);
+        this.redirectIfLog(r);
         return r
       })
   }
@@ -98,11 +94,7 @@ export class UserService {
     headers.append('Authorization', "Bearer " + token);
 
     return this.http.post('http://localhost:3000/user/reset_pass', {email})
-      .map(res =>
-      {
-        let r = res.json();
-        return r
-      })
+      .map(res => res.json())
   }
 
   update_pass_reset(params)
@@ -113,7 +105,7 @@ export class UserService {
     headers.append('Authorization', "Bearer " + token);
 
     console.log('ds')
-    return this.http.put('http://localhost:3000/user/reset_pass', {params})
+    return this.http.put('http://localhost:3000/user/reset_pass', params)
       .map(res => res.json())
   }
 
@@ -147,6 +139,15 @@ export class UserService {
     tokenUser = JSON.stringify(tokenUser);
     // console.log(tokenUser)
     window.sessionStorage.setItem('currentUser', tokenUser);
+  }
+
+  redirectIfLog(res) {
+    if (res && res.sucess && res.token) {
+      localStorage.setItem('token', res.token);
+      this.setCurrentUser(res.token);
+      this.signedIn.emit(true)
+      this.router.navigate(['/home']);   
+    }
   }
 
   loadToken() {

@@ -33,9 +33,9 @@ export class ResetpwdComponent implements OnInit {
 
   changePassword() {
     // let {email, login, password} = this.user;
-    console.log('sd')
-    this._userService.update_pass_reset({pass_reset: this.pass_reset, password: this.password})
-    .subscribe(res => console.log(res));
+    console.log(this.password)
+    this._userService.update_pass_reset({reset_pass: this.pass_reset, password: this.password})
+    .subscribe(res => this._userService.redirectIfLog(res));
     
   }
 

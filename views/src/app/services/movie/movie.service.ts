@@ -27,8 +27,9 @@ export class MovieService
     headers = new Headers();
 
     headers.append('Authorization', "Bearer " + token);
-
+    console.log('dssdds')
     return this.http.get(`http://localhost:3000/movie/subtitles`, { headers: headers, params })
+    .map(res => res.json())
   }
 
   stream(name)

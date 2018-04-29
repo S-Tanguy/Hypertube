@@ -268,7 +268,7 @@ function subtitles_fr(url, title){
 function convert_srtfr(title)
 {
 	var path = "./"+title+".fr.srt";
-	var dest = "./"+title+".fr.vtt";
+	var dest = "./public/subtitles/"+title.trim().split(' ').join('_')+".fr.vtt";
 
 	const srtData = fs.readFileSync(path);
 	srt2vtt(srtData, (err, vttData) =>
@@ -312,7 +312,7 @@ function subtitles_en(url, title)
 function convert_srten(title)
 {
 	var path = "./"+title+".en.srt";
-	var dest = "./"+title+".en.vtt";
+	var dest = "./public/subtitles/"+title.trim().split(' ').join('_')+".en.vtt";
 	const srtData = fs.readFileSync(path);
 
 	srt2vtt(srtData, (err, vttData) =>
