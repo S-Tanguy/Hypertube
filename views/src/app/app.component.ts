@@ -29,7 +29,9 @@ export class AppComponent
   {
     if (this.is_login) {
       this.current_user = this._userService.getCurrentUser();
-      this.viewd_movies = this.current_user.viewd_movies;
+      console.log(this.current_user);
+      if (this.current_user && this.current_user.viewd_movies)
+        this.viewd_movies = this.current_user.viewd_movies;
       if (this.current_user && this.current_user.picture)
         this.usePic =  this.sanitizer.bypassSecurityTrustUrl(this.current_user.picture);
     }

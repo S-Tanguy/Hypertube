@@ -1,8 +1,13 @@
     <mat-card class='card'>
       <mat-card-title>{{'signin.signin' | translate}}</mat-card-title>
       <form #pwdForm='ngForm'>
+        <em *ngIf="success" style="color: green;">A reset link has been sent to your e-mail account.</em>
+        <em *ngIf="error" style="color: red;">An error has occurred. Please make sure that you entered a valid e-mail</em>
           <mat-form-field class='input'>
-            <input matInput [(ngModel)]='email' placeholder="E-mail" name='email' required>
+            <input matInput [(ngModel)]='email' placeholder="E-mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name='email' required>
+            <mat-error *ngIf="email.invalid && (email.dirty || email.touched)" translate>
+              Please enter a valid e-mail
+            </mat-error>
           </mat-form-field>
 
           <button mat-raised-button class='input' style='margin-bottom: 20px;' (click)='sendMail()' [disabled]='!pwdForm.valid'>Send Recovery E-mail</button>

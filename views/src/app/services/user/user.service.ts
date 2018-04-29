@@ -126,7 +126,7 @@ export class UserService {
   }
 
   getCurrentUser() {
-    let r = sessionStorage.getItem('currentUser');
+    let r = localStorage.getItem('currentUser');
 
     return (JSON.parse(r));
   }
@@ -138,7 +138,7 @@ export class UserService {
 
     tokenUser = JSON.stringify(tokenUser);
     // console.log(tokenUser)
-    window.sessionStorage.setItem('currentUser', tokenUser);
+    localStorage.setItem('currentUser', tokenUser);
   }
 
   redirectIfLog(res) {

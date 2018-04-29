@@ -10,6 +10,8 @@ import { UserService } from '../../services/user/user.service';
 })
 export class ForgotpwdComponent implements OnInit {
   email = '';
+  success = false;
+  error = false;
   constructor(private UserService: UserService)
   { }
 
@@ -18,9 +20,16 @@ export class ForgotpwdComponent implements OnInit {
 
   sendMail()
   {
-  	console.log(this.email)
   	this.UserService.reset_pass(this.email)
-    .subscribe(res=>console.log(res))
+    .subscribe(res=> {
+      this.success = true;
+      this.error = false;
+    }, (err)=> {
+      if (err._body) {
+        this.error = true;
+        this.success = false;
+      }
+    })
   }
 
 }

@@ -37,10 +37,12 @@
                 </button>
               </mat-form-field>
           </div>
+          <mat-form-field style='margin-left: 10px;' class='select'>
            <mat-select [placeholder]="'stream.sort' | translate" name='sort_by' [(ngModel)]="search.sort_by">
-            <mat-option value="seed">{{'seed' | translate}}</mat-option>
-            <mat-option value="vote_average.asc">{{'vote_average' | translate}}</mat-option>
-          </mat-select>
+            <mat-option value="seed">{{'stream.seed' | translate}}</mat-option>
+            <mat-option value="vote_average.asc">{{'stream.vote_average' | translate}}</mat-option>
+            </mat-select>
+        </mat-form-field>
       </div>
         <button mat-raised-button (click)='advancedSearch()'>{{'stream.search' | translate}}</button>
     </mat-card>

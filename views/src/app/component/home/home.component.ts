@@ -33,7 +33,8 @@ export class HomeComponent implements OnInit {
     }
 
     let current_user = this._userService.getCurrentUser();
-    this.viewd_movies = current_user.viewd_movies;
+    if (current_user && current_user.viewd_movies)
+      this.viewd_movies = current_user.viewd_movies;
 
     this._movieService.find(params)
     .subscribe(res => 
