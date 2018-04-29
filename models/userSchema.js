@@ -92,7 +92,6 @@ userSchema.methods.validPassword = function(password)
 
 	if (password != null)
 	{
-		console.log(bcrypt.compareSync(password, this.password))
     	return bcrypt.compareSync(password, this.password);
 	}
     else

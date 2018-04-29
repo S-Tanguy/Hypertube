@@ -44,7 +44,7 @@ export class UserService {
 
     // console.log(user)
     return this.http.post('http://localhost:3000/auth/signin', user, { headers: headers })
-      .subscribe(res =>
+      .map(res =>
       {
         let r = res.json();
 
@@ -65,7 +65,7 @@ export class UserService {
     headers.append('Authorization', "Bearer " + token);
 
     return this.http.put('http://localhost:3000/user', data, { headers: headers })
-      .subscribe(res =>
+      .map(res =>
       {
         let r = res.json();
 
@@ -98,7 +98,7 @@ export class UserService {
     headers.append('Authorization', "Bearer " + token);
 
     return this.http.post('http://localhost:3000/user/reset_pass', {email})
-      .subscribe(res =>
+      .map(res =>
       {
         let r = res.json();
         return r
